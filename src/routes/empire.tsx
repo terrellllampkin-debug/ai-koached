@@ -4,7 +4,7 @@ import { Office3D } from "@/components/3d/Office3D";
 import { City3D } from "@/components/3d/City3D";
 import { HUD } from "@/components/3d/HUD";
 import { AIChatPanel } from "@/components/AIChatPanel";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export const Route = createFileRoute("/empire")({
   head: () => ({

@@ -28,8 +28,13 @@ function LoginPage() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate({ to: "/empire" });
+    }
+  }, [isAuthenticated, navigate]);
+
   if (isAuthenticated) {
-    navigate({ to: "/empire" });
     return null;
   }
 
