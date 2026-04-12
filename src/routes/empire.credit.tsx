@@ -115,6 +115,13 @@ function CreditPage() {
             </div>
           </motion.div>
         </div>
+
+        {/* CROA Disclosure */}
+        <div className="mt-8 p-4 rounded-xl border border-primary/20 bg-primary/5">
+          <p className="text-[11px] text-muted-foreground leading-relaxed">
+            <strong className="text-foreground">CROA Disclosure:</strong> AI KOACHED provides document preparation assistance only. We do NOT guarantee any specific credit score improvement or removal of any specific item from your credit report. Billing for credit services occurs ONLY after each service round is completed and verified — never in advance. You may cancel at any time with no penalty. You have 3 business days after signing to cancel for a full refund. Per 15 U.S.C. §1679 et seq. (Credit Repair Organizations Act).
+          </p>
+        </div>
       </div>
     </div>
   );
