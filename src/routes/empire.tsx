@@ -35,8 +35,13 @@ function EmpirePage() {
     );
   }
 
+  useEffect(() => {
+    if (!isLoading && !isAuthenticated) {
+      navigate({ to: "/login" });
+    }
+  }, [isLoading, isAuthenticated, navigate]);
+
   if (!isAuthenticated) {
-    navigate({ to: "/login" });
     return null;
   }
 
