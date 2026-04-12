@@ -13,6 +13,7 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as EmpireRouteImport } from './routes/empire'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as EmpireRevenueRouteImport } from './routes/empire.revenue'
+import { Route as EmpirePricingRouteImport } from './routes/empire.pricing'
 import { Route as EmpireOnboardingRouteImport } from './routes/empire.onboarding'
 import { Route as EmpireMarketsRouteImport } from './routes/empire.markets'
 import { Route as EmpireKoachRouteImport } from './routes/empire.koach'
@@ -38,6 +39,11 @@ const IndexRoute = IndexRouteImport.update({
 const EmpireRevenueRoute = EmpireRevenueRouteImport.update({
   id: '/revenue',
   path: '/revenue',
+  getParentRoute: () => EmpireRoute,
+} as any)
+const EmpirePricingRoute = EmpirePricingRouteImport.update({
+  id: '/pricing',
+  path: '/pricing',
   getParentRoute: () => EmpireRoute,
 } as any)
 const EmpireOnboardingRoute = EmpireOnboardingRouteImport.update({
@@ -81,6 +87,7 @@ export interface FileRoutesByFullPath {
   '/empire/koach': typeof EmpireKoachRoute
   '/empire/markets': typeof EmpireMarketsRoute
   '/empire/onboarding': typeof EmpireOnboardingRoute
+  '/empire/pricing': typeof EmpirePricingRoute
   '/empire/revenue': typeof EmpireRevenueRoute
 }
 export interface FileRoutesByTo {
@@ -93,6 +100,7 @@ export interface FileRoutesByTo {
   '/empire/koach': typeof EmpireKoachRoute
   '/empire/markets': typeof EmpireMarketsRoute
   '/empire/onboarding': typeof EmpireOnboardingRoute
+  '/empire/pricing': typeof EmpirePricingRoute
   '/empire/revenue': typeof EmpireRevenueRoute
 }
 export interface FileRoutesById {
@@ -106,6 +114,7 @@ export interface FileRoutesById {
   '/empire/koach': typeof EmpireKoachRoute
   '/empire/markets': typeof EmpireMarketsRoute
   '/empire/onboarding': typeof EmpireOnboardingRoute
+  '/empire/pricing': typeof EmpirePricingRoute
   '/empire/revenue': typeof EmpireRevenueRoute
 }
 export interface FileRouteTypes {
@@ -120,6 +129,7 @@ export interface FileRouteTypes {
     | '/empire/koach'
     | '/empire/markets'
     | '/empire/onboarding'
+    | '/empire/pricing'
     | '/empire/revenue'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -132,6 +142,7 @@ export interface FileRouteTypes {
     | '/empire/koach'
     | '/empire/markets'
     | '/empire/onboarding'
+    | '/empire/pricing'
     | '/empire/revenue'
   id:
     | '__root__'
@@ -144,6 +155,7 @@ export interface FileRouteTypes {
     | '/empire/koach'
     | '/empire/markets'
     | '/empire/onboarding'
+    | '/empire/pricing'
     | '/empire/revenue'
   fileRoutesById: FileRoutesById
 }
@@ -181,6 +193,13 @@ declare module '@tanstack/react-router' {
       path: '/revenue'
       fullPath: '/empire/revenue'
       preLoaderRoute: typeof EmpireRevenueRouteImport
+      parentRoute: typeof EmpireRoute
+    }
+    '/empire/pricing': {
+      id: '/empire/pricing'
+      path: '/pricing'
+      fullPath: '/empire/pricing'
+      preLoaderRoute: typeof EmpirePricingRouteImport
       parentRoute: typeof EmpireRoute
     }
     '/empire/onboarding': {
@@ -235,6 +254,7 @@ interface EmpireRouteChildren {
   EmpireKoachRoute: typeof EmpireKoachRoute
   EmpireMarketsRoute: typeof EmpireMarketsRoute
   EmpireOnboardingRoute: typeof EmpireOnboardingRoute
+  EmpirePricingRoute: typeof EmpirePricingRoute
   EmpireRevenueRoute: typeof EmpireRevenueRoute
 }
 
@@ -245,6 +265,7 @@ const EmpireRouteChildren: EmpireRouteChildren = {
   EmpireKoachRoute: EmpireKoachRoute,
   EmpireMarketsRoute: EmpireMarketsRoute,
   EmpireOnboardingRoute: EmpireOnboardingRoute,
+  EmpirePricingRoute: EmpirePricingRoute,
   EmpireRevenueRoute: EmpireRevenueRoute,
 }
 
