@@ -1,8 +1,7 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { useAuth } from "@/hooks/useAuth";
-import { ArrowLeft, FileText, Search, CheckCircle, Clock, DollarSign } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { FileText, Search, CheckCircle, Clock, DollarSign } from "lucide-react";
 import { Input } from "@/components/ui/input";
 
 export const Route = createFileRoute("/empire/grants")({

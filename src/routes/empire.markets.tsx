@@ -1,8 +1,7 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { useAuth } from "@/hooks/useAuth";
-import { ArrowLeft, BarChart3, TrendingUp, TrendingDown, AlertTriangle } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { BarChart3, TrendingUp, TrendingDown, AlertTriangle } from "lucide-react";
 
 export const Route = createFileRoute("/empire/markets")({
   head: () => ({

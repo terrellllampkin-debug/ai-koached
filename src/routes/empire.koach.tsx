@@ -1,9 +1,9 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import { useState, useEffect } from "react";
-import { ArrowLeft, Coins, TrendingUp, Gift, History } from "lucide-react";
+import { Coins, Gift, History } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/empire/koach")({
