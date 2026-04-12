@@ -4,6 +4,7 @@ import { Office3D } from "@/components/3d/Office3D";
 import { City3D } from "@/components/3d/City3D";
 import { HUD } from "@/components/3d/HUD";
 import { AIChatPanel } from "@/components/AIChatPanel";
+import { EmpireNav } from "@/components/EmpireNav";
 import { useState, useEffect } from "react";
 
 export const Route = createFileRoute("/empire")({
@@ -41,9 +42,7 @@ function EmpirePage() {
     );
   }
 
-  if (!isAuthenticated) {
-    return null;
-  }
+  if (!isAuthenticated) return null;
 
   const handleBuildingClick = (building: string) => {
     const routes: Record<string, string> = {
@@ -59,40 +58,33 @@ function EmpirePage() {
     if (route) navigate({ to: route });
   };
 
-  // Check if we're on a child route (e.g. /empire/credit)
+  // Check if we're on a child route
   const matches = useMatches();
   const isChildRoute = matches.some(m => m.fullPath !== '/empire' && m.fullPath.startsWith('/empire/'));
 
   if (isChildRoute) {
-    return <Outlet />;
+    return (
+      <div className="min-h-screen bg-background">
+        <EmpireNav />
+        <div className="ml-56 transition-all duration-300">
+          <Outlet />
+        </div>
+      </div>
+    );
   }
 
   return (
     <div className="relative w-full h-screen overflow-hidden bg-background">
-      {/* 3D View */}
       {view === "office" ? (
         <Office3D onDeskClick={(agent) => setActiveAgent(agent)} />
       ) : (
-        <City3D
-          onBuildingClick={handleBuildingClick}
-          onBackToOffice={() => setView("office")}
-        />
+        <City3D onBuildingClick={handleBuildingClick} onBackToOffice={() => setView("office")} />
       )}
 
-      {/* HUD Overlay */}
-      <HUD
-        user={user}
-        onLogout={logout}
-        view={view}
-        onViewChange={setView}
-      />
+      <HUD user={user} onLogout={logout} view={view} onViewChange={setView} />
 
-      {/* AI Chat Panel */}
       {activeAgent && (
-        <AIChatPanel
-          agent={activeAgent}
-          onClose={() => setActiveAgent(null)}
-        />
+        <AIChatPanel agent={activeAgent} onClose={() => setActiveAgent(null)} />
       )}
     </div>
   );

@@ -1,8 +1,7 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { useAuth } from "@/hooks/useAuth";
-import { ArrowLeft, BarChart3, TrendingUp, TrendingDown, AlertTriangle } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { BarChart3, TrendingUp, TrendingDown, AlertTriangle } from "lucide-react";
 
 export const Route = createFileRoute("/empire/markets")({
   head: () => ({
@@ -37,19 +36,12 @@ function MarketsPage() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <div className="max-w-6xl mx-auto px-4 py-8">
-        <div className="flex items-center gap-4 mb-8">
-          <Link to="/empire">
-            <Button variant="ghost" size="icon" className="border border-border">
-              <ArrowLeft className="w-4 h-4" />
-            </Button>
-          </Link>
-          <div>
-            <h1 className="font-heading text-2xl font-bold flex items-center gap-2">
-              <BarChart3 className="w-6 h-6 text-blue-500" />
-              Market District
-            </h1>
-            <p className="text-sm text-muted-foreground">Live market data • Stocks & Crypto</p>
-          </div>
+        <div className="mb-8">
+          <h1 className="font-heading text-2xl font-bold flex items-center gap-2">
+            <BarChart3 className="w-6 h-6 text-chart-2" />
+            Market District
+          </h1>
+          <p className="text-sm text-muted-foreground">Live market data • Stocks & Crypto</p>
         </div>
 
         {/* Disclaimer */}
@@ -68,7 +60,7 @@ function MarketsPage() {
             className="p-6 rounded-xl border border-border bg-card"
           >
             <h2 className="font-heading text-lg font-semibold mb-4 flex items-center gap-2">
-              <TrendingUp className="w-5 h-5 text-blue-400" />
+              <TrendingUp className="w-5 h-5 text-chart-2" />
               Stocks
             </h2>
             <div className="space-y-2">
@@ -101,7 +93,7 @@ function MarketsPage() {
             className="p-6 rounded-xl border border-border bg-card"
           >
             <h2 className="font-heading text-lg font-semibold mb-4 flex items-center gap-2">
-              <TrendingUp className="w-5 h-5 text-cyan-400" />
+              <TrendingUp className="w-5 h-5 text-secondary" />
               Crypto
             </h2>
             <div className="space-y-2">

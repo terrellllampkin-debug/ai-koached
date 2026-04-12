@@ -1,7 +1,7 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { useAuth } from "@/hooks/useAuth";
-import { ArrowLeft, DollarSign, TrendingUp, Target, Zap } from "lucide-react";
+import { DollarSign, TrendingUp, Target, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 
@@ -33,19 +33,12 @@ function RevenuePage() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <div className="max-w-4xl mx-auto px-4 py-8">
-        <div className="flex items-center gap-4 mb-8">
-          <Link to="/empire">
-            <Button variant="ghost" size="icon" className="border border-border">
-              <ArrowLeft className="w-4 h-4" />
-            </Button>
-          </Link>
-          <div>
-            <h1 className="font-heading text-2xl font-bold flex items-center gap-2">
-              <DollarSign className="w-6 h-6 text-success" />
-              Revenue HQ
-            </h1>
-            <p className="text-sm text-muted-foreground">Track revenue & hit $12K/month</p>
-          </div>
+        <div className="mb-8">
+          <h1 className="font-heading text-2xl font-bold flex items-center gap-2">
+            <DollarSign className="w-6 h-6 text-success" />
+            Revenue HQ
+          </h1>
+          <p className="text-sm text-muted-foreground">Track revenue & hit $12K/month</p>
         </div>
 
         {/* Revenue Goal */}
