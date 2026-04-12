@@ -59,6 +59,14 @@ function EmpirePage() {
     if (route) navigate({ to: route });
   };
 
+  // Check if we're on a child route (e.g. /empire/credit)
+  const matches = useMatches();
+  const isChildRoute = matches.some(m => m.fullPath !== '/empire' && m.fullPath.startsWith('/empire/'));
+
+  if (isChildRoute) {
+    return <Outlet />;
+  }
+
   return (
     <div className="relative w-full h-screen overflow-hidden bg-background">
       {/* 3D View */}
