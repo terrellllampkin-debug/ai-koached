@@ -111,85 +111,49 @@ Start with text chat (free), layer voice and NPC as premium features.
 
 ---
 
-## 🏗️ COMPRESSED BUILD PLAN (3D-FIRST)
+## 🏗️ SPEED BUILD PLAN (3D-FIRST, AI-POWERED)
 
-The 3D world is NOT a layer — it IS the product. Every phase ships 3D.
+The 3D world IS the product. AI builds the code. Spline builds the scenes. Ship fast.
 
-### Phase 1 — Foundation + 3D Shell (Day 1-3)
-- ✅ Landing page + brand system (DONE)
-- Enable Lovable Cloud (database, auth)
+### Sprint 1 — Auth + 3D Office Shell (Day 1)
+- Enable Lovable Cloud (database, auth, storage)
 - Auth flow (email + Google sign-in)
-- Database schema (users, profiles, avatars, milestones, achievements, $KOACH balances)
-- Ready Player Me: Avatar creation during onboarding (selfie → GLB → stored in DB)
-- Spline: Design Level 1 starter office (desk, chair, monitors, door)
-- React Three Fiber canvas as main app shell (replaces traditional dashboard)
-- Click desk → opens AI chat panel
-- Click door → navigates to city view
-- HUD overlay (stats bar, $KOACH balance, notifications)
+- Database schema (users, profiles, avatars, office_level, $KOACH balances, milestones, achievements)
+- Ready Player Me avatar creation in onboarding
+- Spline Level 1 office (desk, monitors, door, 4 AI worker desks)
+- R3F canvas as main shell — HUD overlay (stats, $KOACH, notifications)
+- Click desk → AI chat | Click door → city
 
-### Phase 2 — AI Workers in the Office (Day 4-6)
-- Single server function multi-agent router
-- 4 AI worker NPCs at desks (Max Credit, Empire Eva, Revenue Rex, Koach Coin)
-- Mixamo: idle/typing animations on worker avatars
-- Click worker → chat panel slides in with that agent's context
-- Text chat streaming via Lovable AI Gateway
-- +5 $KOACH per interaction tracking
-- Each worker desk has floating name tag + specialty label
+### Sprint 2 — AI Workers + City (Day 2-3)
+- Server function multi-agent router (4 agents)
+- AI workers at desks with Mixamo idle/typing animations
+- Click worker → sliding chat panel with streaming (Lovable AI Gateway)
+- +5 $KOACH per interaction
+- Spline city street with clickable buildings
+- 5 core buildings: Credit Empire, Entity Builder, Revenue HQ, $KOACH Tower, Grant Office
+- Click building → enter interior scene with dedicated AI worker
 
-### Phase 3 — The City + Core Buildings (Day 7-12)
-- Spline: City street view (buildings you can click to enter)
-- Credit Empire building → credit score tracking, vendor accounts, net-30 guide
-- Entity Builder building → LLC formation workflow, EIN tracking
-- Revenue HQ building → $12K goal tracker, processor recommendations
-- $KOACH Tower → balance, earn history, pre-launch display
-- Grant Office → grant pipeline tracking
-- Click building exterior → enter building interior (Spline scene swap)
-- Each building has its own AI worker NPC inside
+### Sprint 3 — Market District + Live Data (Day 4-5)
+- FMP + CoinGecko server functions (cached)
+- S&P 500 Tower, NASDAQ Exchange, Crypto Exchange (Spline scenes)
+- Live tickers, charts, gainers/losers inside each building
+- Watchlist system (saved to DB, visible in office monitors)
+- Legal disclaimer signs in every market building
 
-### Phase 4 — Market District (Day 13-16)
-- FMP + CoinGecko API integration (server functions, cached)
-- Spline: S&P 500 Tower (skyscraper with live ticker displays)
-- Spline: NASDAQ Exchange (trading floor aesthetic)
-- Spline: Crypto Exchange (futuristic/neon)
-- Walk into any market building → see live data, charts, gainers/losers
-- Watchlist system (save stocks/crypto, visible in your office)
-- Legal disclaimers rendered as signs inside each market building
+### Sprint 4 — Community + Shops + Progression (Day 6-7)
+- Community Plaza (Spline scene, member storefronts)
+- Member profiles, directory, leaderboard billboard
+- Shopify Storefront API — members connect own stores, products in 3D storefronts
+- 5 office levels (desk → corner office → penthouse → skyscraper → empire tower)
+- Achievement shelf, milestone celebrations, story mode missions
+- Office auto-upgrades on real milestone hits
 
-### Phase 5 — Community Plaza + Member Shops (Day 17-20)
-- Spline: Community Plaza (open area with member storefronts)
-- Member directory — click avatar → view profile
-- Public profiles (business type, tier, achievements, watchlists)
-- Member shops via Shopify Storefront API (members connect their own stores)
-- Products displayed in 3D storefront windows
-- Leaderboard billboard in plaza ($KOACH, revenue, credit score)
-- Public wins feed on plaza screens
-
-### Phase 6 — Progression + Office Evolution (Day 21-24)
-- 5 office levels (starter desk → corner office → penthouse → skyscraper → empire tower)
-- Spline: Design all 5 office scenes
-- Achievement/trophy shelf in office (entity formed, EIN, first $1K, etc.)
-- Milestone celebrations (confetti, office upgrade animation)
-- Story mode missions (Day 0 → $12K month) as quest markers in HUD
-- Office auto-upgrades when real milestones hit
-
-### Phase 7 — Voice AI + Full NPC Mode (Day 25-28)
-- ElevenLabs: Voice responses for AI workers
-- Convai: Lip-sync on 3D worker models (premium tier)
-- Voice toggle in HUD (text vs voice)
-- Workers gesture and emote during conversations
-
-### Phase 8 — Live Trading (Day 29-32)
-- Alpaca OAuth2 (member connects brokerage inside market building)
-- Paper trading terminal inside market buildings
-- Buy/sell UI as in-world screens
-- Trade history on office monitor
-- Legal compliance review
-
-### Phase 9 — $KOACH Token Launch (Day 33-35)
-- Mint SPL token on Solana
-- Wallet connection (Phantom, Solflare) via $KOACH Tower
-- Database $KOACH → on-chain tokens
-- Token trading board in $KOACH Tower
+### Sprint 5 — Voice AI + Trading + Token (Day 8-10)
+- ElevenLabs voice on AI workers + Convai lip-sync (premium)
+- Alpaca OAuth2 — paper trading + live trading terminals in market buildings
+- $KOACH SPL token mint on Solana
+- Wallet connection (Phantom/Solflare) in $KOACH Tower
+- DB points → on-chain tokens
 
 ---
 
