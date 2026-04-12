@@ -12,6 +12,12 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as EmpireRouteImport } from './routes/empire'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as EmpireRevenueRouteImport } from './routes/empire.revenue'
+import { Route as EmpireMarketsRouteImport } from './routes/empire.markets'
+import { Route as EmpireKoachRouteImport } from './routes/empire.koach'
+import { Route as EmpireGrantsRouteImport } from './routes/empire.grants'
+import { Route as EmpireEntityRouteImport } from './routes/empire.entity'
+import { Route as EmpireCreditRouteImport } from './routes/empire.credit'
 
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
@@ -28,34 +34,110 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EmpireRevenueRoute = EmpireRevenueRouteImport.update({
+  id: '/revenue',
+  path: '/revenue',
+  getParentRoute: () => EmpireRoute,
+} as any)
+const EmpireMarketsRoute = EmpireMarketsRouteImport.update({
+  id: '/markets',
+  path: '/markets',
+  getParentRoute: () => EmpireRoute,
+} as any)
+const EmpireKoachRoute = EmpireKoachRouteImport.update({
+  id: '/koach',
+  path: '/koach',
+  getParentRoute: () => EmpireRoute,
+} as any)
+const EmpireGrantsRoute = EmpireGrantsRouteImport.update({
+  id: '/grants',
+  path: '/grants',
+  getParentRoute: () => EmpireRoute,
+} as any)
+const EmpireEntityRoute = EmpireEntityRouteImport.update({
+  id: '/entity',
+  path: '/entity',
+  getParentRoute: () => EmpireRoute,
+} as any)
+const EmpireCreditRoute = EmpireCreditRouteImport.update({
+  id: '/credit',
+  path: '/credit',
+  getParentRoute: () => EmpireRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/empire': typeof EmpireRoute
+  '/empire': typeof EmpireRouteWithChildren
   '/login': typeof LoginRoute
+  '/empire/credit': typeof EmpireCreditRoute
+  '/empire/entity': typeof EmpireEntityRoute
+  '/empire/grants': typeof EmpireGrantsRoute
+  '/empire/koach': typeof EmpireKoachRoute
+  '/empire/markets': typeof EmpireMarketsRoute
+  '/empire/revenue': typeof EmpireRevenueRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/empire': typeof EmpireRoute
+  '/empire': typeof EmpireRouteWithChildren
   '/login': typeof LoginRoute
+  '/empire/credit': typeof EmpireCreditRoute
+  '/empire/entity': typeof EmpireEntityRoute
+  '/empire/grants': typeof EmpireGrantsRoute
+  '/empire/koach': typeof EmpireKoachRoute
+  '/empire/markets': typeof EmpireMarketsRoute
+  '/empire/revenue': typeof EmpireRevenueRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/empire': typeof EmpireRoute
+  '/empire': typeof EmpireRouteWithChildren
   '/login': typeof LoginRoute
+  '/empire/credit': typeof EmpireCreditRoute
+  '/empire/entity': typeof EmpireEntityRoute
+  '/empire/grants': typeof EmpireGrantsRoute
+  '/empire/koach': typeof EmpireKoachRoute
+  '/empire/markets': typeof EmpireMarketsRoute
+  '/empire/revenue': typeof EmpireRevenueRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/empire' | '/login'
+  fullPaths:
+    | '/'
+    | '/empire'
+    | '/login'
+    | '/empire/credit'
+    | '/empire/entity'
+    | '/empire/grants'
+    | '/empire/koach'
+    | '/empire/markets'
+    | '/empire/revenue'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/empire' | '/login'
-  id: '__root__' | '/' | '/empire' | '/login'
+  to:
+    | '/'
+    | '/empire'
+    | '/login'
+    | '/empire/credit'
+    | '/empire/entity'
+    | '/empire/grants'
+    | '/empire/koach'
+    | '/empire/markets'
+    | '/empire/revenue'
+  id:
+    | '__root__'
+    | '/'
+    | '/empire'
+    | '/login'
+    | '/empire/credit'
+    | '/empire/entity'
+    | '/empire/grants'
+    | '/empire/koach'
+    | '/empire/markets'
+    | '/empire/revenue'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  EmpireRoute: typeof EmpireRoute
+  EmpireRoute: typeof EmpireRouteWithChildren
   LoginRoute: typeof LoginRoute
 }
 
@@ -82,12 +164,75 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/empire/revenue': {
+      id: '/empire/revenue'
+      path: '/revenue'
+      fullPath: '/empire/revenue'
+      preLoaderRoute: typeof EmpireRevenueRouteImport
+      parentRoute: typeof EmpireRoute
+    }
+    '/empire/markets': {
+      id: '/empire/markets'
+      path: '/markets'
+      fullPath: '/empire/markets'
+      preLoaderRoute: typeof EmpireMarketsRouteImport
+      parentRoute: typeof EmpireRoute
+    }
+    '/empire/koach': {
+      id: '/empire/koach'
+      path: '/koach'
+      fullPath: '/empire/koach'
+      preLoaderRoute: typeof EmpireKoachRouteImport
+      parentRoute: typeof EmpireRoute
+    }
+    '/empire/grants': {
+      id: '/empire/grants'
+      path: '/grants'
+      fullPath: '/empire/grants'
+      preLoaderRoute: typeof EmpireGrantsRouteImport
+      parentRoute: typeof EmpireRoute
+    }
+    '/empire/entity': {
+      id: '/empire/entity'
+      path: '/entity'
+      fullPath: '/empire/entity'
+      preLoaderRoute: typeof EmpireEntityRouteImport
+      parentRoute: typeof EmpireRoute
+    }
+    '/empire/credit': {
+      id: '/empire/credit'
+      path: '/credit'
+      fullPath: '/empire/credit'
+      preLoaderRoute: typeof EmpireCreditRouteImport
+      parentRoute: typeof EmpireRoute
+    }
   }
 }
 
+interface EmpireRouteChildren {
+  EmpireCreditRoute: typeof EmpireCreditRoute
+  EmpireEntityRoute: typeof EmpireEntityRoute
+  EmpireGrantsRoute: typeof EmpireGrantsRoute
+  EmpireKoachRoute: typeof EmpireKoachRoute
+  EmpireMarketsRoute: typeof EmpireMarketsRoute
+  EmpireRevenueRoute: typeof EmpireRevenueRoute
+}
+
+const EmpireRouteChildren: EmpireRouteChildren = {
+  EmpireCreditRoute: EmpireCreditRoute,
+  EmpireEntityRoute: EmpireEntityRoute,
+  EmpireGrantsRoute: EmpireGrantsRoute,
+  EmpireKoachRoute: EmpireKoachRoute,
+  EmpireMarketsRoute: EmpireMarketsRoute,
+  EmpireRevenueRoute: EmpireRevenueRoute,
+}
+
+const EmpireRouteWithChildren =
+  EmpireRoute._addFileChildren(EmpireRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  EmpireRoute: EmpireRoute,
+  EmpireRoute: EmpireRouteWithChildren,
   LoginRoute: LoginRoute,
 }
 export const routeTree = rootRouteImport
