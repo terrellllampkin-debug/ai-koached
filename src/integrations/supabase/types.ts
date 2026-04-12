@@ -235,6 +235,7 @@ export type Database = {
       }
       profiles: {
         Row: {
+          avatar_config: Json | null
           avatar_glb_url: string | null
           avatar_url: string | null
           bio: string | null
@@ -250,6 +251,7 @@ export type Database = {
           user_id: string
         }
         Insert: {
+          avatar_config?: Json | null
           avatar_glb_url?: string | null
           avatar_url?: string | null
           bio?: string | null
@@ -265,6 +267,7 @@ export type Database = {
           user_id: string
         }
         Update: {
+          avatar_config?: Json | null
           avatar_glb_url?: string | null
           avatar_url?: string | null
           bio?: string | null

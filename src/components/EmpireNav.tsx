@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import {
   Home, CreditCard, Building2, DollarSign, Coins,
   FileText, BarChart3, LogOut, ChevronLeft, ChevronRight,
-  User, Crown, Scale,
+  User, Crown, Scale, Shirt,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -19,6 +19,7 @@ const navItems = [
   { to: "/empire/koach", icon: Coins, label: "$KOACHED Tower" },
   { to: "/empire/grants", icon: FileText, label: "Grant Office" },
   { to: "/empire/markets", icon: BarChart3, label: "Market District" },
+  { to: "/empire/avatar", icon: Shirt, label: "Avatar Creator" },
   { to: "/empire/pricing", icon: Crown, label: "Pricing" },
   { to: "/empire/legal", icon: Scale, label: "Legal & FAQ" },
 ];
