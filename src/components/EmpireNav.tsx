@@ -19,6 +19,7 @@ const navItems = [
   { to: "/empire/koach", icon: Coins, label: "$KOACHED Tower" },
   { to: "/empire/grants", icon: FileText, label: "Grant Office" },
   { to: "/empire/markets", icon: BarChart3, label: "Market District" },
+  { to: "/empire/pricing", icon: Crown, label: "Pricing" },
 ];
 
 export function EmpireNav() {
