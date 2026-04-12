@@ -20,6 +20,7 @@ const navItems = [
   { to: "/empire/grants", icon: FileText, label: "Grant Office" },
   { to: "/empire/markets", icon: BarChart3, label: "Market District" },
   { to: "/empire/pricing", icon: Crown, label: "Pricing" },
+  { to: "/empire/legal", icon: Scale, label: "Legal & FAQ" },
 ];
 
 export function EmpireNav() {
