@@ -1,4 +1,4 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, useNavigate, Outlet, useMatches } from "@tanstack/react-router";
 import { useAuth } from "@/hooks/useAuth";
 import { Office3D } from "@/components/3d/Office3D";
 import { City3D } from "@/components/3d/City3D";
