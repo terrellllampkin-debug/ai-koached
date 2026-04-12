@@ -8,6 +8,7 @@ import { useAuth } from "@/hooks/useAuth";
 
 const agentProfiles: Record<string, { name: string; specialty: string; color: string; emoji: string }> = {
   max_credit: { name: "Max Credit", specialty: "Credit Empire Specialist", color: "#D4AF37", emoji: "💳" },
+  credit_repair: { name: "Fix-It Frankie", specialty: "Credit Repair Specialist", color: "#E53935", emoji: "🔧" },
   empire_eva: { name: "Empire Eva", specialty: "Entity Formation Expert", color: "#7F77DD", emoji: "🏛️" },
   revenue_rex: { name: "Revenue Rex", specialty: "Revenue Growth Strategist", color: "#4CAF50", emoji: "💰" },
   koach_coin: { name: "KOACHed Coin", specialty: "$KOACHED Token Advisor", color: "#FF9800", emoji: "🪙" },
