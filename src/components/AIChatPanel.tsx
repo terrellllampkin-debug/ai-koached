@@ -144,7 +144,6 @@ export function AIChatPanel({ agent, onClose }: AIChatPanelProps) {
 
         // Award 5 $KOACH
         setKoachEarned((prev) => prev + 5);
-        supabase.rpc("", {}).catch(() => {}); // We'll handle KOACH via a simpler approach
       }
     } catch (e) {
       console.error("Stream error:", e);
