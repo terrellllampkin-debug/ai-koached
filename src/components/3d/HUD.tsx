@@ -2,16 +2,18 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Logo } from "@/components/Logo";
 import { supabase } from "@/integrations/supabase/client";
-import { LogOut, Coins, Building2, Trophy, Bell } from "lucide-react";
+import { LogOut, Coins, Building2, Trophy, Bell, Map, Home } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { User } from "@supabase/supabase-js";
 
 interface HUDProps {
   user: User | null;
   onLogout: () => void;
+  view: "office" | "city";
+  onViewChange: (view: "office" | "city") => void;
 }
 
-export function HUD({ user, onLogout }: HUDProps) {
+export function HUD({ user, onLogout, view, onViewChange }: HUDProps) {
   const [koachBalance, setKoachBalance] = useState(0);
   const [displayName, setDisplayName] = useState("");
   const [officeName, setOfficeName] = useState("Starter Desk");
@@ -69,13 +71,31 @@ export function HUD({ user, onLogout }: HUDProps) {
             </div>
           </div>
 
-          {/* Center — Stats */}
-          <div className="flex items-center gap-3">
+          {/* Center — Stats + View Toggle */}
+          <div className="flex items-center gap-2">
             <div className="flex items-center gap-2 bg-background/60 backdrop-blur-xl rounded-xl px-4 py-2 border border-border">
               <Coins className="w-4 h-4 text-primary" />
               <span className="font-mono text-sm font-bold text-primary">{koachBalance.toLocaleString()}</span>
               <span className="text-[10px] text-muted-foreground">$KOACH</span>
             </div>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="bg-background/60 backdrop-blur-xl border border-border hover:border-primary/40 gap-1.5 text-xs"
+              onClick={() => onViewChange(view === "office" ? "city" : "office")}
+            >
+              {view === "office" ? (
+                <>
+                  <Map className="w-3.5 h-3.5 text-primary" />
+                  City
+                </>
+              ) : (
+                <>
+                  <Home className="w-3.5 h-3.5 text-primary" />
+                  Office
+                </>
+              )}
+            </Button>
           </div>
 
           {/* Right — User + actions */}
@@ -121,7 +141,9 @@ export function HUD({ user, onLogout }: HUDProps) {
       >
         <div className="flex items-center gap-2 bg-background/60 backdrop-blur-xl rounded-full px-4 py-2 border border-border text-xs text-muted-foreground">
           <Building2 className="w-3.5 h-3.5 text-primary" />
-          Click a desk to talk to your AI workers
+          {view === "office"
+            ? "Click a desk to talk to your AI workers • Click City to explore"
+            : "Click a building to enter • Click Office to return"}
         </div>
       </motion.div>
     </>

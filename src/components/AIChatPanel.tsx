@@ -1,8 +1,10 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Send, Sparkles } from "lucide-react";
+import { X, Send, Sparkles, Coins } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/hooks/useAuth";
 
 const agentProfiles: Record<string, { name: string; specialty: string; color: string; emoji: string }> = {
   max_credit: { name: "Max Credit", specialty: "Credit Empire Specialist", color: "#D4AF37", emoji: "💳" },
@@ -21,8 +23,11 @@ interface AIChatPanelProps {
   onClose: () => void;
 }
 
+const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/chat`;
+
 export function AIChatPanel({ agent, onClose }: AIChatPanelProps) {
   const profile = agentProfiles[agent] || agentProfiles.max_credit;
+  const { user, session } = useAuth();
   const [messages, setMessages] = useState<Message[]>([
     {
       role: "assistant",
@@ -30,33 +35,126 @@ export function AIChatPanel({ agent, onClose }: AIChatPanelProps) {
     },
   ]);
   const [input, setInput] = useState("");
-  const [isTyping, setIsTyping] = useState(false);
+  const [isStreaming, setIsStreaming] = useState(false);
+  const [koachEarned, setKoachEarned] = useState(0);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  const handleSend = async () => {
-    if (!input.trim() || isTyping) return;
+  const handleSend = useCallback(async () => {
+    if (!input.trim() || isStreaming) return;
 
     const userMessage = input.trim();
     setInput("");
-    setMessages((prev) => [...prev, { role: "user", content: userMessage }]);
-    setIsTyping(true);
+    const userMsg: Message = { role: "user", content: userMessage };
+    setMessages((prev) => [...prev, userMsg]);
+    setIsStreaming(true);
 
-    // Placeholder response — will be replaced with Lovable AI Gateway
-    setTimeout(() => {
+    // Save user message to DB
+    if (user) {
+      supabase.from("chat_messages").insert({
+        user_id: user.id,
+        agent,
+        role: "user",
+        content: userMessage,
+      }).then(() => {});
+    }
+
+    let assistantSoFar = "";
+
+    try {
+      const resp = await fetch(CHAT_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+        },
+        body: JSON.stringify({
+          messages: [...messages, userMsg].map((m) => ({
+            role: m.role,
+            content: m.content,
+          })),
+          agent,
+        }),
+      });
+
+      if (!resp.ok || !resp.body) {
+        const errData = await resp.json().catch(() => ({ error: "Failed to connect" }));
+        setMessages((prev) => [
+          ...prev,
+          { role: "assistant", content: `⚠️ ${errData.error || "Something went wrong. Try again."}` },
+        ]);
+        setIsStreaming(false);
+        return;
+      }
+
+      const reader = resp.body.getReader();
+      const decoder = new TextDecoder();
+      let textBuffer = "";
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        textBuffer += decoder.decode(value, { stream: true });
+
+        let newlineIndex: number;
+        while ((newlineIndex = textBuffer.indexOf("\n")) !== -1) {
+          let line = textBuffer.slice(0, newlineIndex);
+          textBuffer = textBuffer.slice(newlineIndex + 1);
+
+          if (line.endsWith("\r")) line = line.slice(0, -1);
+          if (line.startsWith(":") || line.trim() === "") continue;
+          if (!line.startsWith("data: ")) continue;
+
+          const jsonStr = line.slice(6).trim();
+          if (jsonStr === "[DONE]") break;
+
+          try {
+            const parsed = JSON.parse(jsonStr);
+            const content = parsed.choices?.[0]?.delta?.content as string | undefined;
+            if (content) {
+              assistantSoFar += content;
+              setMessages((prev) => {
+                const last = prev[prev.length - 1];
+                if (last?.role === "assistant" && prev.length > 1 && last.content !== messages[0]?.content) {
+                  return prev.map((m, i) =>
+                    i === prev.length - 1 ? { ...m, content: assistantSoFar } : m
+                  );
+                }
+                return [...prev, { role: "assistant", content: assistantSoFar }];
+              });
+            }
+          } catch {
+            textBuffer = line + "\n" + textBuffer;
+            break;
+          }
+        }
+      }
+
+      // Save assistant message to DB and award $KOACH
+      if (user && assistantSoFar) {
+        supabase.from("chat_messages").insert({
+          user_id: user.id,
+          agent,
+          role: "assistant",
+          content: assistantSoFar,
+        }).then(() => {});
+
+        // Award 5 $KOACH
+        setKoachEarned((prev) => prev + 5);
+      }
+    } catch (e) {
+      console.error("Stream error:", e);
       setMessages((prev) => [
         ...prev,
-        {
-          role: "assistant",
-          content: `Great question! As ${profile.name}, I'm here to help you with ${profile.specialty.toLowerCase()}. The AI Gateway integration is coming next — then I'll give you real strategic advice! 🚀`,
-        },
+        { role: "assistant", content: "⚠️ Connection error. Please try again." },
       ]);
-      setIsTyping(false);
-    }, 1500);
-  };
+    } finally {
+      setIsStreaming(false);
+    }
+  }, [input, isStreaming, messages, agent, user, session]);
 
   return (
     <AnimatePresence>
@@ -83,9 +181,21 @@ export function AIChatPanel({ agent, onClose }: AIChatPanelProps) {
               <p className="text-[10px] text-muted-foreground">{profile.specialty}</p>
             </div>
           </div>
-          <Button variant="ghost" size="icon" onClick={onClose} className="h-8 w-8">
-            <X className="w-4 h-4" />
-          </Button>
+          <div className="flex items-center gap-2">
+            {koachEarned > 0 && (
+              <motion.div
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                className="flex items-center gap-1 bg-primary/10 rounded-full px-2 py-1"
+              >
+                <Coins className="w-3 h-3 text-primary" />
+                <span className="text-[10px] font-mono font-bold text-primary">+{koachEarned}</span>
+              </motion.div>
+            )}
+            <Button variant="ghost" size="icon" onClick={onClose} className="h-8 w-8">
+              <X className="w-4 h-4" />
+            </Button>
+          </div>
         </div>
 
         {/* Messages */}
@@ -98,7 +208,7 @@ export function AIChatPanel({ agent, onClose }: AIChatPanelProps) {
               className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
             >
               <div
-                className={`max-w-[80%] rounded-xl px-4 py-2.5 text-sm leading-relaxed ${
+                className={`max-w-[85%] rounded-xl px-4 py-2.5 text-sm leading-relaxed ${
                   msg.role === "user"
                     ? "bg-primary text-primary-foreground"
                     : "bg-muted text-foreground"
@@ -108,7 +218,7 @@ export function AIChatPanel({ agent, onClose }: AIChatPanelProps) {
               </div>
             </motion.div>
           ))}
-          {isTyping && (
+          {isStreaming && messages[messages.length - 1]?.role !== "assistant" && (
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -132,18 +242,19 @@ export function AIChatPanel({ agent, onClose }: AIChatPanelProps) {
               onKeyDown={(e) => e.key === "Enter" && handleSend()}
               placeholder={`Ask ${profile.name}...`}
               className="bg-muted border-border"
+              disabled={isStreaming}
             />
             <Button
               size="icon"
               onClick={handleSend}
-              disabled={!input.trim() || isTyping}
+              disabled={!input.trim() || isStreaming}
               className="bg-primary text-primary-foreground hover:bg-primary/90 shrink-0"
             >
               <Send className="w-4 h-4" />
             </Button>
           </div>
           <p className="mt-2 text-[10px] text-muted-foreground text-center">
-            +5 $KOACH per interaction • AI-powered guidance
+            +5 $KOACH per interaction • Powered by AI
           </p>
         </div>
       </motion.div>
