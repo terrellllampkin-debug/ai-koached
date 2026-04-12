@@ -10,7 +10,7 @@ const agentProfiles: Record<string, { name: string; specialty: string; color: st
   max_credit: { name: "Max Credit", specialty: "Credit Empire Specialist", color: "#D4AF37", emoji: "💳" },
   empire_eva: { name: "Empire Eva", specialty: "Entity Formation Expert", color: "#7F77DD", emoji: "🏛️" },
   revenue_rex: { name: "Revenue Rex", specialty: "Revenue Growth Strategist", color: "#4CAF50", emoji: "💰" },
-  koach_coin: { name: "Koach Coin", specialty: "$KOACH Token Advisor", color: "#FF9800", emoji: "🪙" },
+  koach_coin: { name: "KOACHed Coin", specialty: "$KOACHED Token Advisor", color: "#FF9800", emoji: "🪙" },
 };
 
 interface Message {
@@ -52,7 +52,6 @@ export function AIChatPanel({ agent, onClose }: AIChatPanelProps) {
     setMessages((prev) => [...prev, userMsg]);
     setIsStreaming(true);
 
-    // Save user message to DB
     if (user) {
       supabase.from("chat_messages").insert({
         user_id: user.id,
@@ -133,7 +132,6 @@ export function AIChatPanel({ agent, onClose }: AIChatPanelProps) {
         }
       }
 
-      // Save assistant message to DB and award $KOACH
       if (user && assistantSoFar) {
         supabase.from("chat_messages").insert({
           user_id: user.id,
@@ -142,7 +140,6 @@ export function AIChatPanel({ agent, onClose }: AIChatPanelProps) {
           content: assistantSoFar,
         }).then(() => {});
 
-        // Award 5 $KOACH
         setKoachEarned((prev) => prev + 5);
       }
     } catch (e) {
@@ -254,7 +251,7 @@ export function AIChatPanel({ agent, onClose }: AIChatPanelProps) {
             </Button>
           </div>
           <p className="mt-2 text-[10px] text-muted-foreground text-center">
-            +5 $KOACH per interaction • Powered by AI
+            +5 $KOACHED per interaction • Powered by AI
           </p>
         </div>
       </motion.div>

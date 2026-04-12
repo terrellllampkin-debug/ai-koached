@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import {
   Home, CreditCard, Building2, DollarSign, Coins,
   FileText, BarChart3, LogOut, ChevronLeft, ChevronRight,
-  Trophy, User,
+  User,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -16,7 +16,7 @@ const navItems = [
   { to: "/empire/credit", icon: CreditCard, label: "Credit Empire" },
   { to: "/empire/entity", icon: Building2, label: "Entity Builder" },
   { to: "/empire/revenue", icon: DollarSign, label: "Revenue HQ" },
-  { to: "/empire/koach", icon: Coins, label: "$KOACH Tower" },
+  { to: "/empire/koach", icon: Coins, label: "$KOACHED Tower" },
   { to: "/empire/grants", icon: FileText, label: "Grant Office" },
   { to: "/empire/markets", icon: BarChart3, label: "Market District" },
 ];
@@ -87,7 +87,7 @@ export function EmpireNav() {
               {koachBalance.toLocaleString()}
             </span>
           </div>
-          <p className="text-[10px] text-sidebar-foreground/50 mt-0.5">$KOACH Balance</p>
+          <p className="text-[10px] text-sidebar-foreground/50 mt-0.5">$KOACHED Balance</p>
         </div>
       )}
 

@@ -34,7 +34,7 @@ const goals = [
   { id: "credit", label: "Build Business Credit", icon: CreditCard },
   { id: "entity", label: "Form Business Entity", icon: Building2 },
   { id: "revenue", label: "Hit $12K/Month", icon: DollarSign },
-  { id: "koach", label: "Earn $KOACH Rewards", icon: Coins },
+  { id: "koach", label: "Earn $KOACHED Rewards", icon: Coins },
 ];
 
 function OnboardingPage() {
@@ -67,13 +67,12 @@ function OnboardingPage() {
       onboarding_complete: true,
     }).eq("user_id", user.id);
 
-    // Create initial milestones based on goals
     const milestones = selectedGoals.map((g) => {
       const m: Record<string, { key: string; title: string; desc: string }> = {
         credit: { key: "first_credit_account", title: "Open First Credit Account", desc: "Open a Net-30 vendor account" },
         entity: { key: "first_entity", title: "Form First Entity", desc: "File your first LLC, Corp, or Trust" },
         revenue: { key: "first_1k", title: "Hit $1K/Month", desc: "Reach $1,000 in monthly revenue" },
-        koach: { key: "earn_1000_koach", title: "Earn 1,000 $KOACH", desc: "Accumulate 1,000 $KOACH tokens" },
+        koach: { key: "earn_1000_koached", title: "Earn 1,000 $KOACHED", desc: "Accumulate 1,000 $KOACHED tokens" },
       };
       return m[g];
     }).filter(Boolean);
@@ -93,7 +92,6 @@ function OnboardingPage() {
   };
 
   const steps = [
-    // Step 0: Welcome
     <motion.div key="welcome" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} className="text-center">
       <Logo size={64} />
       <h1 className="font-heading text-3xl font-bold mt-6">Welcome, CEO</h1>
@@ -102,7 +100,7 @@ function OnboardingPage() {
       </p>
       <div className="mt-6 p-4 rounded-xl border border-primary/20 bg-primary/5 inline-flex items-center gap-2">
         <Sparkles className="w-5 h-5 text-primary" />
-        <span className="font-mono text-sm font-bold text-primary">+500 $KOACH</span>
+        <span className="font-mono text-sm font-bold text-primary">+500 $KOACHED</span>
         <span className="text-xs text-muted-foreground">welcome bonus credited!</span>
       </div>
       <div className="mt-8">
@@ -112,7 +110,6 @@ function OnboardingPage() {
       </div>
     </motion.div>,
 
-    // Step 1: Name + Business Type
     <motion.div key="profile" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} className="max-w-md mx-auto">
       <h2 className="font-heading text-2xl font-bold text-center">What should we call you?</h2>
       <Input
@@ -148,7 +145,6 @@ function OnboardingPage() {
       </Button>
     </motion.div>,
 
-    // Step 2: Goals
     <motion.div key="goals" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} className="max-w-md mx-auto">
       <h2 className="font-heading text-2xl font-bold text-center">What are your goals?</h2>
       <p className="text-muted-foreground text-center mt-2">Select all that apply — we'll set up milestones for you.</p>
@@ -188,7 +184,6 @@ function OnboardingPage() {
 
   return (
     <div className="min-h-screen bg-background flex items-center justify-center px-4 py-12">
-      {/* Progress */}
       <div className="fixed top-0 left-0 right-0 h-1 bg-muted z-50">
         <motion.div
           className="h-full bg-primary"
