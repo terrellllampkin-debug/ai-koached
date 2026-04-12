@@ -60,7 +60,7 @@ function MarketsPage() {
             className="p-6 rounded-xl border border-border bg-card"
           >
             <h2 className="font-heading text-lg font-semibold mb-4 flex items-center gap-2">
-              <TrendingUp className="w-5 h-5 text-blue-400" />
+              <TrendingUp className="w-5 h-5 text-chart-2" />
               Stocks
             </h2>
             <div className="space-y-2">
@@ -93,7 +93,7 @@ function MarketsPage() {
             className="p-6 rounded-xl border border-border bg-card"
           >
             <h2 className="font-heading text-lg font-semibold mb-4 flex items-center gap-2">
-              <TrendingUp className="w-5 h-5 text-cyan-400" />
+              <TrendingUp className="w-5 h-5 text-secondary" />
               Crypto
             </h2>
             <div className="space-y-2">
