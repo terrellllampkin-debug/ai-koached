@@ -24,6 +24,12 @@ function EmpirePage() {
   const [activeAgent, setActiveAgent] = useState<string | null>(null);
   const [view, setView] = useState<View>("office");
 
+  useEffect(() => {
+    if (!isLoading && !isAuthenticated) {
+      navigate({ to: "/login" });
+    }
+  }, [isLoading, isAuthenticated, navigate]);
+
   if (isLoading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
@@ -34,12 +40,6 @@ function EmpirePage() {
       </div>
     );
   }
-
-  useEffect(() => {
-    if (!isLoading && !isAuthenticated) {
-      navigate({ to: "/login" });
-    }
-  }, [isLoading, isAuthenticated, navigate]);
 
   if (!isAuthenticated) {
     return null;
