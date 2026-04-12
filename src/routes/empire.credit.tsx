@@ -1,11 +1,9 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import { useState, useEffect } from "react";
-import { ArrowLeft, CreditCard, Plus, TrendingUp, Building2, CheckCircle } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { CreditCard, TrendingUp, Building2, CheckCircle } from "lucide-react";
 
 export const Route = createFileRoute("/empire/credit")({
   head: () => ({
