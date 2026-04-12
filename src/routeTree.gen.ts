@@ -21,6 +21,7 @@ import { Route as EmpireKoachRouteImport } from './routes/empire.koach'
 import { Route as EmpireGrantsRouteImport } from './routes/empire.grants'
 import { Route as EmpireEntityRouteImport } from './routes/empire.entity'
 import { Route as EmpireCreditRouteImport } from './routes/empire.credit'
+import { Route as EmpireBuildRouteImport } from './routes/empire.build'
 import { Route as EmpireAvatarRouteImport } from './routes/empire.avatar'
 
 const LoginRoute = LoginRouteImport.update({
@@ -83,6 +84,11 @@ const EmpireCreditRoute = EmpireCreditRouteImport.update({
   path: '/credit',
   getParentRoute: () => EmpireRoute,
 } as any)
+const EmpireBuildRoute = EmpireBuildRouteImport.update({
+  id: '/build',
+  path: '/build',
+  getParentRoute: () => EmpireRoute,
+} as any)
 const EmpireAvatarRoute = EmpireAvatarRouteImport.update({
   id: '/avatar',
   path: '/avatar',
@@ -94,6 +100,7 @@ export interface FileRoutesByFullPath {
   '/empire': typeof EmpireRouteWithChildren
   '/login': typeof LoginRoute
   '/empire/avatar': typeof EmpireAvatarRoute
+  '/empire/build': typeof EmpireBuildRoute
   '/empire/credit': typeof EmpireCreditRoute
   '/empire/entity': typeof EmpireEntityRoute
   '/empire/grants': typeof EmpireGrantsRoute
@@ -109,6 +116,7 @@ export interface FileRoutesByTo {
   '/empire': typeof EmpireRouteWithChildren
   '/login': typeof LoginRoute
   '/empire/avatar': typeof EmpireAvatarRoute
+  '/empire/build': typeof EmpireBuildRoute
   '/empire/credit': typeof EmpireCreditRoute
   '/empire/entity': typeof EmpireEntityRoute
   '/empire/grants': typeof EmpireGrantsRoute
@@ -125,6 +133,7 @@ export interface FileRoutesById {
   '/empire': typeof EmpireRouteWithChildren
   '/login': typeof LoginRoute
   '/empire/avatar': typeof EmpireAvatarRoute
+  '/empire/build': typeof EmpireBuildRoute
   '/empire/credit': typeof EmpireCreditRoute
   '/empire/entity': typeof EmpireEntityRoute
   '/empire/grants': typeof EmpireGrantsRoute
@@ -142,6 +151,7 @@ export interface FileRouteTypes {
     | '/empire'
     | '/login'
     | '/empire/avatar'
+    | '/empire/build'
     | '/empire/credit'
     | '/empire/entity'
     | '/empire/grants'
@@ -157,6 +167,7 @@ export interface FileRouteTypes {
     | '/empire'
     | '/login'
     | '/empire/avatar'
+    | '/empire/build'
     | '/empire/credit'
     | '/empire/entity'
     | '/empire/grants'
@@ -172,6 +183,7 @@ export interface FileRouteTypes {
     | '/empire'
     | '/login'
     | '/empire/avatar'
+    | '/empire/build'
     | '/empire/credit'
     | '/empire/entity'
     | '/empire/grants'
@@ -275,6 +287,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EmpireCreditRouteImport
       parentRoute: typeof EmpireRoute
     }
+    '/empire/build': {
+      id: '/empire/build'
+      path: '/build'
+      fullPath: '/empire/build'
+      preLoaderRoute: typeof EmpireBuildRouteImport
+      parentRoute: typeof EmpireRoute
+    }
     '/empire/avatar': {
       id: '/empire/avatar'
       path: '/avatar'
@@ -287,6 +306,7 @@ declare module '@tanstack/react-router' {
 
 interface EmpireRouteChildren {
   EmpireAvatarRoute: typeof EmpireAvatarRoute
+  EmpireBuildRoute: typeof EmpireBuildRoute
   EmpireCreditRoute: typeof EmpireCreditRoute
   EmpireEntityRoute: typeof EmpireEntityRoute
   EmpireGrantsRoute: typeof EmpireGrantsRoute
@@ -300,6 +320,7 @@ interface EmpireRouteChildren {
 
 const EmpireRouteChildren: EmpireRouteChildren = {
   EmpireAvatarRoute: EmpireAvatarRoute,
+  EmpireBuildRoute: EmpireBuildRoute,
   EmpireCreditRoute: EmpireCreditRoute,
   EmpireEntityRoute: EmpireEntityRoute,
   EmpireGrantsRoute: EmpireGrantsRoute,
