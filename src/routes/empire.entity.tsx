@@ -65,19 +65,12 @@ function EntityPage() {
     <div className="min-h-screen bg-background text-foreground">
       <div className="max-w-4xl mx-auto px-4 py-8">
         <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center gap-4">
-            <Link to="/empire">
-              <Button variant="ghost" size="icon" className="border border-border">
-                <ArrowLeft className="w-4 h-4" />
-              </Button>
-            </Link>
-            <div>
-              <h1 className="font-heading text-2xl font-bold flex items-center gap-2">
-                <Building2 className="w-6 h-6 text-secondary" />
-                Entity Builder
-              </h1>
-              <p className="text-sm text-muted-foreground">Form and track your business entities</p>
-            </div>
+          <div>
+            <h1 className="font-heading text-2xl font-bold flex items-center gap-2">
+              <Building2 className="w-6 h-6 text-secondary" />
+              Entity Builder
+            </h1>
+            <p className="text-sm text-muted-foreground">Form and track your business entities</p>
           </div>
           <Button onClick={() => setShowForm(true)} className="bg-primary text-primary-foreground gap-1">
             <Plus className="w-4 h-4" /> New Entity
