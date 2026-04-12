@@ -76,7 +76,7 @@ function LoginPage() {
           </h1>
           <p className="mt-2 text-sm text-muted-foreground">
             {isSignUp
-              ? "Create your account and receive 500 $KOACH"
+              ? "Create your account and receive 500 $KOACHED"
               : "Welcome back, CEO"}
           </p>
         </div>
@@ -205,7 +205,7 @@ function LoginPage() {
             className="mt-4 text-center flex items-center justify-center gap-2 text-sm text-primary"
           >
             <Sparkles className="w-4 h-4" />
-            500 $KOACH welcome bonus on signup
+            500 $KOACHED welcome bonus on signup
           </motion.div>
         )}
       </motion.div>

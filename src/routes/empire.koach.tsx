@@ -4,13 +4,12 @@ import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import { useState, useEffect } from "react";
 import { Coins, Gift, History } from "lucide-react";
-import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/empire/koach")({
   head: () => ({
     meta: [
-      { title: "$KOACH Tower — AI KOACHED" },
-      { name: "description", content: "Your $KOACH token balance and earn history." },
+      { title: "$KOACHED Tower — AI KOACHED" },
+      { name: "description", content: "Your $KOACHED token balance and earn history." },
     ],
   }),
   component: KoachPage,
@@ -46,7 +45,7 @@ function KoachPage() {
         <div className="mb-8">
           <h1 className="font-heading text-2xl font-bold flex items-center gap-2">
             <Coins className="w-6 h-6 text-primary" />
-            $KOACH Tower
+            $KOACHED Tower
           </h1>
           <p className="text-sm text-muted-foreground">Your utility token balance & history</p>
         </div>
@@ -59,7 +58,7 @@ function KoachPage() {
           >
             <p className="text-sm text-muted-foreground mb-1">Current Balance</p>
             <p className="font-mono text-4xl font-bold text-primary">{balance.toLocaleString()}</p>
-            <p className="text-xs text-muted-foreground mt-1">$KOACH tokens</p>
+            <p className="text-xs text-muted-foreground mt-1">$KOACHED tokens</p>
           </motion.div>
 
           <motion.div
@@ -70,7 +69,7 @@ function KoachPage() {
           >
             <p className="text-sm text-muted-foreground mb-1">Lifetime Earned</p>
             <p className="font-mono text-4xl font-bold text-foreground">{lifetimeEarned.toLocaleString()}</p>
-            <p className="text-xs text-muted-foreground mt-1">total $KOACH earned</p>
+            <p className="text-xs text-muted-foreground mt-1">total $KOACHED earned</p>
           </motion.div>
         </div>
 
@@ -83,7 +82,7 @@ function KoachPage() {
         >
           <h2 className="font-heading text-lg font-semibold mb-4 flex items-center gap-2">
             <Gift className="w-5 h-5 text-primary" />
-            How to Earn $KOACH
+            How to Earn $KOACHED
           </h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
             {[
@@ -138,10 +137,10 @@ function KoachPage() {
         {/* Pre-launch notice */}
         <div className="mt-6 p-4 rounded-xl border border-primary/20 bg-primary/5 text-center">
           <p className="text-sm text-muted-foreground">
-            🚀 $KOACH is currently tracked in your account. On-chain Solana SPL token launch coming soon!
+            🚀 $KOACHED is currently tracked in your account. On-chain Solana SPL token launch coming soon!
           </p>
           <p className="text-[10px] text-muted-foreground mt-1">
-            $KOACH is a utility token, NOT an investment or security.
+            $KOACHED is a utility token, NOT an investment or security.
           </p>
         </div>
       </div>

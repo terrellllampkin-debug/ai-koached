@@ -76,7 +76,7 @@ export function HUD({ user, onLogout, view, onViewChange }: HUDProps) {
             <div className="flex items-center gap-2 bg-background/60 backdrop-blur-xl rounded-xl px-4 py-2 border border-border">
               <Coins className="w-4 h-4 text-primary" />
               <span className="font-mono text-sm font-bold text-primary">{koachBalance.toLocaleString()}</span>
-              <span className="text-[10px] text-muted-foreground">$KOACH</span>
+              <span className="text-[10px] text-muted-foreground">$KOACHED</span>
             </div>
             <Button
               variant="ghost"
