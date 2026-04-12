@@ -1,10 +1,10 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, useNavigate, Outlet, useMatches } from "@tanstack/react-router";
 import { useAuth } from "@/hooks/useAuth";
 import { Office3D } from "@/components/3d/Office3D";
 import { City3D } from "@/components/3d/City3D";
 import { HUD } from "@/components/3d/HUD";
 import { AIChatPanel } from "@/components/AIChatPanel";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export const Route = createFileRoute("/empire")({
   head: () => ({
@@ -24,6 +24,12 @@ function EmpirePage() {
   const [activeAgent, setActiveAgent] = useState<string | null>(null);
   const [view, setView] = useState<View>("office");
 
+  useEffect(() => {
+    if (!isLoading && !isAuthenticated) {
+      navigate({ to: "/login" });
+    }
+  }, [isLoading, isAuthenticated, navigate]);
+
   if (isLoading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
@@ -36,7 +42,6 @@ function EmpirePage() {
   }
 
   if (!isAuthenticated) {
-    navigate({ to: "/login" });
     return null;
   }
 
@@ -53,6 +58,14 @@ function EmpirePage() {
     const route = routes[building];
     if (route) navigate({ to: route });
   };
+
+  // Check if we're on a child route (e.g. /empire/credit)
+  const matches = useMatches();
+  const isChildRoute = matches.some(m => m.fullPath !== '/empire' && m.fullPath.startsWith('/empire/'));
+
+  if (isChildRoute) {
+    return <Outlet />;
+  }
 
   return (
     <div className="relative w-full h-screen overflow-hidden bg-background">
