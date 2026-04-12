@@ -125,7 +125,7 @@ function AvatarPage() {
     setSaving(true);
     await supabase
       .from("profiles")
-      .update({ avatar_config: config as unknown as Record<string, unknown> })
+      .update({ avatar_config: JSON.parse(JSON.stringify(config)) })
       .eq("user_id", user.id);
     setSaving(false);
     setSaved(true);
