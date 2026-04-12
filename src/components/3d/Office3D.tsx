@@ -8,6 +8,7 @@ interface Office3DProps {
 
 const agents = [
   { id: "max_credit", name: "Max Credit", specialty: "Credit Empire", position: [-3, 0, -2] as [number, number, number], color: "#D4AF37" },
+  { id: "credit_repair", name: "Fix-It Frankie", specialty: "Credit Repair", position: [0, 0, -3.5] as [number, number, number], color: "#E53935" },
   { id: "empire_eva", name: "Empire Eva", specialty: "Entity Builder", position: [3, 0, -2] as [number, number, number], color: "#7F77DD" },
   { id: "revenue_rex", name: "Revenue Rex", specialty: "Revenue Tracker", position: [-3, 0, 2] as [number, number, number], color: "#4CAF50" },
   { id: "koach_coin", name: "Koach Coin", specialty: "$KOACH Token", position: [3, 0, 2] as [number, number, number], color: "#FF9800" },
