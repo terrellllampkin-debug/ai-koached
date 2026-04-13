@@ -6,7 +6,7 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import {
   Building2, CreditCard, DollarSign, Coins, Send, Sparkles,
   Bot, ChevronRight, ArrowRight, Wrench, Briefcase, Users,
-  Newspaper, Zap,
+  Newspaper, Zap, FileText, Palette, CalendarCheck, Globe,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -33,6 +33,10 @@ const WORKERS = [
   { id: "ceo_coach", name: "The Architect", role: "Master Builder", icon: Briefcase, color: "#D4AF37", description: "Interviews you, builds your full business plan, and dispatches AI workers" },
   { id: "profile_builder", name: "Profile Pro", role: "B2B Profile Builder", icon: Users, color: "#9C27B0", description: "Creates your business profile for the B2B community marketplace" },
   { id: "empire_eva", name: "Empire Eva", role: "Entity Formation (Global)", icon: Building2, color: "#7F77DD", description: "Files entities in any country — US LLC, UK Ltd, Nigerian CAC, UAE Free Zone & more" },
+  { id: "legal_docs", name: "Doc Builder", role: "Legal Documents", icon: FileText, color: "#26A69A", description: "Generates contracts, NDAs, operating agreements, privacy policies & more" },
+  { id: "brand_builder", name: "Brand Kit", role: "Branding & Identity", icon: Palette, color: "#E91E63", description: "Creates your complete brand — colors, fonts, logo concepts, taglines, domain ideas" },
+  { id: "website_builder", name: "Site Builder", role: "Website Strategy", icon: Globe, color: "#00BCD4", description: "Plans your website, writes page content, recommends platforms, sets up SEO" },
+  { id: "compliance_coach", name: "Compliance Coach", role: "Deadlines & Filings", icon: CalendarCheck, color: "#FF5722", description: "Tracks every filing deadline, tax date, and license renewal so you never get shut down" },
   { id: "max_credit", name: "Max Credit", role: "Personal Credit", icon: CreditCard, color: "#D4AF37", description: "Builds your personal credit profile and score" },
   { id: "biz_credit", name: "Biz Builder Brock", role: "Business Credit", icon: Briefcase, color: "#2196F3", description: "Establishes D&B profile, Paydex score, vendor accounts" },
   { id: "credit_repair", name: "Fix-It Frankie", role: "Credit Repair", icon: Wrench, color: "#E53935", description: "Disputes errors, writes letters, restores your credit" },
