@@ -66,11 +66,19 @@ const features = [
 ];
 
 const tiers = [
-  { name: "Free", price: "$0", period: "/forever", features: ["Community access", "3 AI tool uses/day", "Market data", "500 $KOACHED signup bonus"], cta: "Start Free", popular: false },
-  { name: "Starter", price: "$47", period: "/mo", features: ["Everything in Free", "Unlimited AI tools", "Revenue tracker", "1 entity formation", "Grant pipeline", "Daily $KOACHED rewards"], cta: "Get Started", popular: false },
-  { name: "Builder", price: "$97", period: "/mo", features: ["Everything in Starter", "4 AI agents access", "Content studio", "3 entity formations", "Processor rotation", "Priority support"], cta: "Start Building", popular: true },
-  { name: "Empire", price: "$197", period: "/mo", features: ["Everything in Builder", "Unlimited entities", "Global empire tools", "Trust layer planning", "Money flow diagrams", "Empire structure views"], cta: "Build Empire", popular: false },
-  { name: "Dynasty", price: "$497", period: "/mo", features: ["Everything in Empire", "Dynasty-only channels", "Dynasty AI tools", "1-on-1 strategy calls", "White-glove formation", "Maximum $KOACHED allocation"], cta: "Join Dynasty", popular: false },
+  { name: "Free", price: "$0", period: "/forever", features: ["Browse B2B Marketplace & shops", "View storefronts & profiles", "Preview AI tools (read-only)", "Platform tour & demo"], cta: "Start Free", popular: false },
+  { name: "Starter", price: "$47", period: "/mo", features: ["14 AI agents build your business", "Empire Roadmap (step-by-step)", "Credit Scanner (1/mo)", "Doc Generator (5/mo)", "1 Storefront listing", "100 $KOACHED/mo"], cta: "Get Started", popular: false },
+  { name: "Builder", price: "$97", period: "/mo", features: ["Everything in Starter", "Unlimited scanner & docs", "3 Storefront listings", "Content Studio & Grant Writer AI", "Priority AI responses", "250 $KOACHED/mo"], cta: "Start Building", popular: true },
+  { name: "Empire", price: "$197", period: "/mo", features: ["Everything in Builder", "Unlimited storefronts", "Featured marketplace placement", "SMS alerts & compliance monitoring", "Multi-entity management", "500 $KOACHED/mo"], cta: "Build Empire", popular: false },
+  { name: "Dynasty", price: "$497", period: "/mo", features: ["Everything in Empire", "Dynasty Mastermind community", "Monthly 1-on-1 strategy session", "White glove onboarding", "Custom branded storefront", "1,000 $KOACHED/mo"], cta: "Join Dynasty", popular: false },
+];
+
+const additionalPricing = [
+  { category: "Credit Services", range: "$79 – $197/mo", items: "Basic Dispute $79 · Full Service $99 · Premium $119 · Couples $119–$179 · Biz Credit $147 · Paydex Accelerator $197" },
+  { category: "Entity Formation", range: "$77 – $247", items: "Wyoming LLC $197 · C-Corp $247 · Texas LLC $147 · Florida LLC $147 · Delaware LLC $197 · EIN $77 · DUNS $97" },
+  { category: "AI Workforce", range: "$497 – $2,997", items: "Starter AI Team (5 workers) $497 · Full Workforce (15) $997 · Empire AI OS (30+) $2,997" },
+  { category: "Done-For-You Builds", range: "$997 – $4,997", items: "Business in a Box $997 · Full Empire Build $2,997 · Global Empire $4,997" },
+  { category: "Storefront Rentals", range: "$29 – $99/mo", items: "Pop-Up Shop $29/mo · Main Street $59/mo · Flagship Store $99/mo" },
 ];
 
 function LandingPage() {
@@ -327,6 +335,9 @@ function LandingPage() {
             <p className="mt-4 text-muted-foreground">
               Every tier unlocks more power. Dynasty members get the gold treatment.
             </p>
+            <p className="mt-2 text-xs text-muted-foreground">
+              Annual plans save 17% (2 months free) · Starter $470/yr · Builder $970/yr · Empire $1,970/yr · Dynasty $4,970/yr
+            </p>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
@@ -383,6 +394,50 @@ function LandingPage() {
               </motion.div>
             ))}
           </div>
+
+          {/* Additional Pricing Categories */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+            variants={fadeUp}
+            custom={0}
+            className="mt-16"
+          >
+            <h3 className="font-heading text-xl sm:text-2xl font-bold text-center text-foreground mb-2">
+              À La Carte <span className="text-primary">Services & Packages</span>
+            </h3>
+            <p className="text-center text-sm text-muted-foreground mb-8">
+              Available to all members. Mix and match with your membership.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {additionalPricing.map((cat, i) => (
+                <motion.div
+                  key={cat.category}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  variants={fadeUp}
+                  custom={i % 3}
+                  className="p-5 rounded-xl border border-border bg-card hover:border-primary/30 transition-colors"
+                >
+                  <div className="flex items-center justify-between mb-2">
+                    <h4 className="font-heading text-sm font-semibold">{cat.category}</h4>
+                    <span className="font-mono text-xs font-bold text-primary">{cat.range}</span>
+                  </div>
+                  <p className="text-[11px] text-muted-foreground leading-relaxed">{cat.items}</p>
+                </motion.div>
+              ))}
+            </div>
+            <div className="text-center mt-6">
+              <Link to="/login">
+                <Button variant="outline" className="border-primary/40 text-primary hover:bg-primary/10 gap-2">
+                  See Full Pricing Breakdown
+                  <ArrowRight className="w-4 h-4" />
+                </Button>
+              </Link>
+            </div>
+          </motion.div>
         </div>
       </section>
 
