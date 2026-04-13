@@ -335,6 +335,9 @@ function LandingPage() {
             <p className="mt-4 text-muted-foreground">
               Every tier unlocks more power. Dynasty members get the gold treatment.
             </p>
+            <p className="mt-2 text-xs text-muted-foreground">
+              Annual plans save 17% (2 months free) · Starter $470/yr · Builder $970/yr · Empire $1,970/yr · Dynasty $4,970/yr
+            </p>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
@@ -391,6 +394,50 @@ function LandingPage() {
               </motion.div>
             ))}
           </div>
+
+          {/* Additional Pricing Categories */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+            variants={fadeUp}
+            custom={0}
+            className="mt-16"
+          >
+            <h3 className="font-heading text-xl sm:text-2xl font-bold text-center text-foreground mb-2">
+              À La Carte <span className="text-primary">Services & Packages</span>
+            </h3>
+            <p className="text-center text-sm text-muted-foreground mb-8">
+              Available to all members. Mix and match with your membership.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {additionalPricing.map((cat, i) => (
+                <motion.div
+                  key={cat.category}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  variants={fadeUp}
+                  custom={i % 3}
+                  className="p-5 rounded-xl border border-border bg-card hover:border-primary/30 transition-colors"
+                >
+                  <div className="flex items-center justify-between mb-2">
+                    <h4 className="font-heading text-sm font-semibold">{cat.category}</h4>
+                    <span className="font-mono text-xs font-bold text-primary">{cat.range}</span>
+                  </div>
+                  <p className="text-[11px] text-muted-foreground leading-relaxed">{cat.items}</p>
+                </motion.div>
+              ))}
+            </div>
+            <div className="text-center mt-6">
+              <Link to="/login">
+                <Button variant="outline" className="border-primary/40 text-primary hover:bg-primary/10 gap-2">
+                  See Full Pricing Breakdown
+                  <ArrowRight className="w-4 h-4" />
+                </Button>
+              </Link>
+            </div>
+          </motion.div>
         </div>
       </section>
 
