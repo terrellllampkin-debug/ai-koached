@@ -149,15 +149,15 @@ function LandingPage() {
             custom={3}
             className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4"
           >
-            <Link to="/login">
+            <Link to="/try">
               <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 text-base px-8 py-6 font-semibold gap-2 group">
-                I Already Have a Business
+                Try Free — Describe Your Idea
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
             <Link to="/login">
               <Button size="lg" variant="outline" className="border-primary/40 text-primary hover:bg-primary/10 text-base px-8 py-6 font-semibold gap-2">
-                I Want to Start a Business
+                I Already Have a Business
                 <ChevronRight className="w-4 h-4" />
               </Button>
             </Link>
