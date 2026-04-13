@@ -283,6 +283,10 @@ serve(async (req) => {
           revenue_rex: ["revenue", "marketing", "global_fintech"],
           koach_coin: ["ai_tools"],
           profile_builder: ["ai_tools", "marketing"],
+          legal_docs: ["entity", "global_formation"],
+          brand_builder: ["marketing", "ai_tools"],
+          compliance_coach: ["entity", "global_formation"],
+          website_builder: ["marketing", "ai_tools", "revenue"],
         };
         const categories = categoryMap[agent] || ["ai_tools"];
 
