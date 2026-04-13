@@ -336,7 +336,7 @@ function AIWorkersPage() {
     <div className="min-h-screen bg-background text-foreground">
       <div className="flex h-[calc(100vh-0px)]">
         {/* Worker sidebar */}
-        <div className="w-72 border-r border-border bg-card flex flex-col shrink-0">
+        <div className="w-72 border-r border-border flex flex-col shrink-0" style={{ background: "linear-gradient(180deg, oklch(0.14 0.005 285) 0%, oklch(0.11 0.005 285) 100%)" }}>
           <div className="p-4 border-b border-border">
             <div className="flex items-center gap-2 mb-1">
               <Bot className="w-5 h-5 text-primary" />
@@ -552,7 +552,7 @@ function AIWorkersPage() {
         {/* Chat area */}
         <div className="flex-1 flex flex-col">
           {/* Chat header with journey progress */}
-          <div className="flex items-center gap-3 px-6 py-4 border-b border-border bg-card/50">
+          <div className="flex items-center gap-3 px-6 py-4 border-b border-border glass-card rounded-none">
             <div
               className="w-12 h-12 rounded-xl overflow-hidden shrink-0"
               style={{ backgroundColor: worker.color + "15" }}
