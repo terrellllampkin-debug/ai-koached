@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import {
   Home, CreditCard, Building2, DollarSign, Coins,
   FileText, BarChart3, LogOut, ChevronLeft, ChevronRight,
-  User, Crown, Scale, Shirt, Rocket, Bot,
+  User, Crown, Scale, Shirt, Rocket, Bot, Users,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
