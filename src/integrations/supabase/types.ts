@@ -330,6 +330,45 @@ export type Database = {
         }
         Relationships: []
       }
+      dispute_letters: {
+        Row: {
+          account_name: string
+          bureau: string
+          created_at: string
+          error_description: string
+          error_type: string
+          id: string
+          letter_content: string
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          account_name: string
+          bureau: string
+          created_at?: string
+          error_description: string
+          error_type: string
+          id?: string
+          letter_content: string
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          account_name?: string
+          bureau?: string
+          created_at?: string
+          error_description?: string
+          error_type?: string
+          id?: string
+          letter_content?: string
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       entities: {
         Row: {
           created_at: string
@@ -580,7 +619,48 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      public_profiles: {
+        Row: {
+          avatar_config: Json | null
+          avatar_glb_url: string | null
+          avatar_url: string | null
+          bio: string | null
+          business_type: string | null
+          created_at: string | null
+          display_name: string | null
+          id: string | null
+          office: Database["public"]["Enums"]["office_level"] | null
+          tier: Database["public"]["Enums"]["membership_tier"] | null
+          user_id: string | null
+        }
+        Insert: {
+          avatar_config?: Json | null
+          avatar_glb_url?: string | null
+          avatar_url?: string | null
+          bio?: string | null
+          business_type?: string | null
+          created_at?: string | null
+          display_name?: string | null
+          id?: string | null
+          office?: Database["public"]["Enums"]["office_level"] | null
+          tier?: Database["public"]["Enums"]["membership_tier"] | null
+          user_id?: string | null
+        }
+        Update: {
+          avatar_config?: Json | null
+          avatar_glb_url?: string | null
+          avatar_url?: string | null
+          bio?: string | null
+          business_type?: string | null
+          created_at?: string | null
+          display_name?: string | null
+          id?: string | null
+          office?: Database["public"]["Enums"]["office_level"] | null
+          tier?: Database["public"]["Enums"]["membership_tier"] | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       has_role: {
