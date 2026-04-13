@@ -410,6 +410,7 @@ export type Database = {
           created_at: string
           ein: string | null
           entity_type: string
+          formation_steps: Json
           formed_at: string | null
           id: string
           name: string
@@ -422,6 +423,7 @@ export type Database = {
           created_at?: string
           ein?: string | null
           entity_type: string
+          formation_steps?: Json
           formed_at?: string | null
           id?: string
           name: string
@@ -434,6 +436,7 @@ export type Database = {
           created_at?: string
           ein?: string | null
           entity_type?: string
+          formation_steps?: Json
           formed_at?: string | null
           id?: string
           name?: string
@@ -443,6 +446,50 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      entity_documents: {
+        Row: {
+          created_at: string
+          document_content: string | null
+          document_name: string
+          document_type: string
+          entity_id: string
+          file_url: string | null
+          id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          document_content?: string | null
+          document_name: string
+          document_type: string
+          entity_id: string
+          file_url?: string | null
+          id?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          document_content?: string | null
+          document_name?: string
+          document_type?: string
+          entity_id?: string
+          file_url?: string | null
+          id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "entity_documents_entity_id_fkey"
+            columns: ["entity_id"]
+            isOneToOne: false
+            referencedRelation: "entities"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       koach_balances: {
         Row: {
