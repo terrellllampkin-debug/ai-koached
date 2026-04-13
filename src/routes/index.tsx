@@ -369,15 +369,17 @@ function LandingPage() {
                     </li>
                   ))}
                 </ul>
-                <Button
-                  className={`mt-6 w-full font-semibold ${
-                    tier.popular || tier.name === "Dynasty"
-                      ? "bg-primary text-primary-foreground hover:bg-primary/90"
-                      : "bg-muted text-foreground hover:bg-muted/80"
-                  }`}
-                >
-                  {tier.cta}
-                </Button>
+                <Link to="/login">
+                  <Button
+                    className={`mt-6 w-full font-semibold ${
+                      tier.popular || tier.name === "Dynasty"
+                        ? "bg-primary text-primary-foreground hover:bg-primary/90"
+                        : "bg-muted text-foreground hover:bg-muted/80"
+                    }`}
+                  >
+                    {tier.cta}
+                  </Button>
+                </Link>
               </motion.div>
             ))}
           </div>
@@ -486,10 +488,10 @@ function LandingPage() {
               <span className="font-heading text-sm font-bold tracking-wider text-primary">AI KOACHED</span>
             </div>
             <div className="flex items-center gap-6 text-sm text-muted-foreground">
-              <Link to="/" className="hover:text-primary transition-colors">Terms</Link>
-              <Link to="/" className="hover:text-primary transition-colors">Privacy</Link>
-              <Link to="/" className="hover:text-primary transition-colors">CROA Disclosure</Link>
-              <Link to="/" className="hover:text-primary transition-colors">Disclaimer</Link>
+              <Link to="/empire/legal" className="hover:text-primary transition-colors">Terms</Link>
+              <Link to="/empire/legal" className="hover:text-primary transition-colors">Privacy</Link>
+              <Link to="/empire/legal" className="hover:text-primary transition-colors">CROA Disclosure</Link>
+              <Link to="/empire/legal" className="hover:text-primary transition-colors">Disclaimer</Link>
             </div>
             <p className="text-xs text-muted-foreground">© 2026 AI KOACHED. All rights reserved.</p>
           </div>
