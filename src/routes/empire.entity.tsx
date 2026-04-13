@@ -200,7 +200,7 @@ function EntityPage() {
   const selectedEntity = entities.find(e => e.id === selectedEntityId);
 
   const statusIcon = (status: string) => {
-    if (status === "formed") return <CheckCircle className="w-4 h-4 text-green-500" />;
+    if (status === "formed") return <CheckCircle className="w-4 h-4 text-primary" />;
     if (status === "in_progress") return <Clock className="w-4 h-4 text-primary" />;
     return <AlertCircle className="w-4 h-4 text-muted-foreground" />;
   };
@@ -354,7 +354,7 @@ function EntityDetail({
           </div>
           <span className={cn(
             "text-xs px-3 py-1 rounded-full font-medium",
-            entity.status === "formed" ? "bg-green-500/10 text-green-500" :
+            entity.status === "formed" ? "bg-primary/10 text-primary" :
             entity.status === "in_progress" ? "bg-primary/10 text-primary" :
             "bg-muted text-muted-foreground"
           )}>
