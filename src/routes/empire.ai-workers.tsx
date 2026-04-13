@@ -450,10 +450,21 @@ function AIWorkersPage() {
                   )}
                 >
                   <div
-                    className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 mt-0.5 relative"
+                    className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0 mt-0.5 relative overflow-hidden"
                     style={{ backgroundColor: w.color + "20" }}
                   >
-                    <w.icon className="w-4 h-4" style={{ color: w.color }} />
+                    {agentProfiles[w.id] ? (
+                      <img
+                        src={agentProfiles[w.id].image}
+                        alt={w.name}
+                        className="w-full h-full object-contain"
+                        loading="lazy"
+                        width={64}
+                        height={64}
+                      />
+                    ) : (
+                      <w.icon className="w-4 h-4" style={{ color: w.color }} />
+                    )}
                     {isPhaseComplete && (
                       <div className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-green-500 rounded-full flex items-center justify-center">
                         <CheckCircle2 className="w-2.5 h-2.5 text-white" />
