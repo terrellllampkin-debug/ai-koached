@@ -77,6 +77,154 @@ export type Database = {
         }
         Relationships: []
       }
+      business_listings: {
+        Row: {
+          business_profile_id: string
+          category: string | null
+          created_at: string
+          currency: string
+          description: string | null
+          id: string
+          images: string[] | null
+          is_active: boolean
+          listing_type: string
+          price: number | null
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          business_profile_id: string
+          category?: string | null
+          created_at?: string
+          currency?: string
+          description?: string | null
+          id?: string
+          images?: string[] | null
+          is_active?: boolean
+          listing_type?: string
+          price?: number | null
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          business_profile_id?: string
+          category?: string | null
+          created_at?: string
+          currency?: string
+          description?: string | null
+          id?: string
+          images?: string[] | null
+          is_active?: boolean
+          listing_type?: string
+          price?: number | null
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "business_listings_business_profile_id_fkey"
+            columns: ["business_profile_id"]
+            isOneToOne: false
+            referencedRelation: "business_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      business_profiles: {
+        Row: {
+          business_name: string
+          city: string | null
+          contact_email: string | null
+          contact_phone: string | null
+          country: string
+          created_at: string
+          description: string | null
+          id: string
+          industry: string | null
+          is_verified: boolean
+          logo_url: string | null
+          services_offered: string[] | null
+          updated_at: string
+          user_id: string
+          website_url: string | null
+        }
+        Insert: {
+          business_name: string
+          city?: string | null
+          contact_email?: string | null
+          contact_phone?: string | null
+          country?: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          industry?: string | null
+          is_verified?: boolean
+          logo_url?: string | null
+          services_offered?: string[] | null
+          updated_at?: string
+          user_id: string
+          website_url?: string | null
+        }
+        Update: {
+          business_name?: string
+          city?: string | null
+          contact_email?: string | null
+          contact_phone?: string | null
+          country?: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          industry?: string | null
+          is_verified?: boolean
+          logo_url?: string | null
+          services_offered?: string[] | null
+          updated_at?: string
+          user_id?: string
+          website_url?: string | null
+        }
+        Relationships: []
+      }
+      business_reviews: {
+        Row: {
+          business_profile_id: string
+          created_at: string
+          id: string
+          rating: number
+          review_text: string | null
+          reviewer_user_id: string
+          updated_at: string
+        }
+        Insert: {
+          business_profile_id: string
+          created_at?: string
+          id?: string
+          rating: number
+          review_text?: string | null
+          reviewer_user_id: string
+          updated_at?: string
+        }
+        Update: {
+          business_profile_id?: string
+          created_at?: string
+          id?: string
+          rating?: number
+          review_text?: string | null
+          reviewer_user_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "business_reviews_business_profile_id_fkey"
+            columns: ["business_profile_id"]
+            isOneToOne: false
+            referencedRelation: "business_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       chat_messages: {
         Row: {
           agent: string
