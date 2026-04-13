@@ -7,6 +7,7 @@ import {
   Building2, CreditCard, DollarSign, Coins, Send, Sparkles,
   Bot, ChevronRight, ArrowRight, Wrench, Briefcase, Users,
   Newspaper, Zap, FileText, Palette, CalendarCheck, Globe,
+  Target, TrendingUp,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -42,6 +43,8 @@ const WORKERS = [
   { id: "credit_repair", name: "Fix-It Frankie", role: "Credit Repair", icon: Wrench, color: "#E53935", description: "Disputes errors, writes letters, restores your credit" },
   { id: "revenue_rex", name: "Revenue Rex", role: "Revenue Growth", icon: DollarSign, color: "#4CAF50", description: "Sets up payment processing, pricing, sales funnels — global processors" },
   { id: "koach_coin", name: "KOACHed Coin", role: "$KOACHED Tokens", icon: Coins, color: "#FF9800", description: "Tracks your token earnings and utility" },
+  { id: "sales_closer", name: "Sales Closer", role: "Sales Strategy", icon: Target, color: "#F44336", description: "Creates sales scripts, funnels, and outreach based on what your buyers want" },
+  { id: "biz_growth", name: "Growth Engine", role: "Get More Business", icon: TrendingUp, color: "#00E676", description: "Finds leads, partnerships, contracts, and new clients across every channel" },
 ];
 
 function AIWorkersPage() {
