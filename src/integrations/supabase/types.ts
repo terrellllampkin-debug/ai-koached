@@ -369,6 +369,42 @@ export type Database = {
         }
         Relationships: []
       }
+      empire_journey: {
+        Row: {
+          agent_notes: Json
+          completed_phases: string[]
+          created_at: string
+          current_step: number
+          id: string
+          next_agent: string
+          phase: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          agent_notes?: Json
+          completed_phases?: string[]
+          created_at?: string
+          current_step?: number
+          id?: string
+          next_agent?: string
+          phase?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          agent_notes?: Json
+          completed_phases?: string[]
+          created_at?: string
+          current_step?: number
+          id?: string
+          next_agent?: string
+          phase?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       entities: {
         Row: {
           created_at: string
