@@ -330,6 +330,45 @@ export type Database = {
         }
         Relationships: []
       }
+      dispute_letters: {
+        Row: {
+          account_name: string
+          bureau: string
+          created_at: string
+          error_description: string
+          error_type: string
+          id: string
+          letter_content: string
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          account_name: string
+          bureau: string
+          created_at?: string
+          error_description: string
+          error_type: string
+          id?: string
+          letter_content: string
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          account_name?: string
+          bureau?: string
+          created_at?: string
+          error_description?: string
+          error_type?: string
+          id?: string
+          letter_content?: string
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       entities: {
         Row: {
           created_at: string
