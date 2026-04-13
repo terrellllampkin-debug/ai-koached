@@ -20,6 +20,8 @@ import { Route as EmpireLegalRouteImport } from './routes/empire.legal'
 import { Route as EmpireKoachRouteImport } from './routes/empire.koach'
 import { Route as EmpireGrantsRouteImport } from './routes/empire.grants'
 import { Route as EmpireEntityRouteImport } from './routes/empire.entity'
+import { Route as EmpireDocumentsRouteImport } from './routes/empire.documents'
+import { Route as EmpireCreditScannerRouteImport } from './routes/empire.credit-scanner'
 import { Route as EmpireCreditRouteImport } from './routes/empire.credit'
 import { Route as EmpireConnectionsRouteImport } from './routes/empire.connections'
 import { Route as EmpireComplianceRouteImport } from './routes/empire.compliance'
@@ -84,6 +86,16 @@ const EmpireEntityRoute = EmpireEntityRouteImport.update({
   path: '/entity',
   getParentRoute: () => EmpireRoute,
 } as any)
+const EmpireDocumentsRoute = EmpireDocumentsRouteImport.update({
+  id: '/documents',
+  path: '/documents',
+  getParentRoute: () => EmpireRoute,
+} as any)
+const EmpireCreditScannerRoute = EmpireCreditScannerRouteImport.update({
+  id: '/credit-scanner',
+  path: '/credit-scanner',
+  getParentRoute: () => EmpireRoute,
+} as any)
 const EmpireCreditRoute = EmpireCreditRouteImport.update({
   id: '/credit',
   path: '/credit',
@@ -137,6 +149,8 @@ export interface FileRoutesByFullPath {
   '/empire/compliance': typeof EmpireComplianceRoute
   '/empire/connections': typeof EmpireConnectionsRoute
   '/empire/credit': typeof EmpireCreditRoute
+  '/empire/credit-scanner': typeof EmpireCreditScannerRoute
+  '/empire/documents': typeof EmpireDocumentsRoute
   '/empire/entity': typeof EmpireEntityRoute
   '/empire/grants': typeof EmpireGrantsRoute
   '/empire/koach': typeof EmpireKoachRoute
@@ -158,6 +172,8 @@ export interface FileRoutesByTo {
   '/empire/compliance': typeof EmpireComplianceRoute
   '/empire/connections': typeof EmpireConnectionsRoute
   '/empire/credit': typeof EmpireCreditRoute
+  '/empire/credit-scanner': typeof EmpireCreditScannerRoute
+  '/empire/documents': typeof EmpireDocumentsRoute
   '/empire/entity': typeof EmpireEntityRoute
   '/empire/grants': typeof EmpireGrantsRoute
   '/empire/koach': typeof EmpireKoachRoute
@@ -180,6 +196,8 @@ export interface FileRoutesById {
   '/empire/compliance': typeof EmpireComplianceRoute
   '/empire/connections': typeof EmpireConnectionsRoute
   '/empire/credit': typeof EmpireCreditRoute
+  '/empire/credit-scanner': typeof EmpireCreditScannerRoute
+  '/empire/documents': typeof EmpireDocumentsRoute
   '/empire/entity': typeof EmpireEntityRoute
   '/empire/grants': typeof EmpireGrantsRoute
   '/empire/koach': typeof EmpireKoachRoute
@@ -203,6 +221,8 @@ export interface FileRouteTypes {
     | '/empire/compliance'
     | '/empire/connections'
     | '/empire/credit'
+    | '/empire/credit-scanner'
+    | '/empire/documents'
     | '/empire/entity'
     | '/empire/grants'
     | '/empire/koach'
@@ -224,6 +244,8 @@ export interface FileRouteTypes {
     | '/empire/compliance'
     | '/empire/connections'
     | '/empire/credit'
+    | '/empire/credit-scanner'
+    | '/empire/documents'
     | '/empire/entity'
     | '/empire/grants'
     | '/empire/koach'
@@ -245,6 +267,8 @@ export interface FileRouteTypes {
     | '/empire/compliance'
     | '/empire/connections'
     | '/empire/credit'
+    | '/empire/credit-scanner'
+    | '/empire/documents'
     | '/empire/entity'
     | '/empire/grants'
     | '/empire/koach'
@@ -341,6 +365,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EmpireEntityRouteImport
       parentRoute: typeof EmpireRoute
     }
+    '/empire/documents': {
+      id: '/empire/documents'
+      path: '/documents'
+      fullPath: '/empire/documents'
+      preLoaderRoute: typeof EmpireDocumentsRouteImport
+      parentRoute: typeof EmpireRoute
+    }
+    '/empire/credit-scanner': {
+      id: '/empire/credit-scanner'
+      path: '/credit-scanner'
+      fullPath: '/empire/credit-scanner'
+      preLoaderRoute: typeof EmpireCreditScannerRouteImport
+      parentRoute: typeof EmpireRoute
+    }
     '/empire/credit': {
       id: '/empire/credit'
       path: '/credit'
@@ -420,6 +458,8 @@ interface EmpireRouteChildren {
   EmpireComplianceRoute: typeof EmpireComplianceRoute
   EmpireConnectionsRoute: typeof EmpireConnectionsRoute
   EmpireCreditRoute: typeof EmpireCreditRoute
+  EmpireCreditScannerRoute: typeof EmpireCreditScannerRoute
+  EmpireDocumentsRoute: typeof EmpireDocumentsRoute
   EmpireEntityRoute: typeof EmpireEntityRoute
   EmpireGrantsRoute: typeof EmpireGrantsRoute
   EmpireKoachRoute: typeof EmpireKoachRoute
@@ -438,6 +478,8 @@ const EmpireRouteChildren: EmpireRouteChildren = {
   EmpireComplianceRoute: EmpireComplianceRoute,
   EmpireConnectionsRoute: EmpireConnectionsRoute,
   EmpireCreditRoute: EmpireCreditRoute,
+  EmpireCreditScannerRoute: EmpireCreditScannerRoute,
+  EmpireDocumentsRoute: EmpireDocumentsRoute,
   EmpireEntityRoute: EmpireEntityRoute,
   EmpireGrantsRoute: EmpireGrantsRoute,
   EmpireKoachRoute: EmpireKoachRoute,
