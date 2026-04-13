@@ -213,15 +213,20 @@ function AIWorkersPage() {
           content: assistantSoFar,
         }).then(() => {});
       }
-    } catch {
-      setMessages((prev) => [
-        ...prev,
-        { role: "assistant", content: "⚠️ Connection error. Please try again." },
-      ]);
-    } finally {
-      setIsStreaming(false);
-      inputRef.current?.focus();
-    }
+      // Success — break retry loop
+      break;
+      } catch {
+        if (attempt === maxRetries) {
+          setMessages((prev) => [
+            ...prev,
+            { role: "assistant", content: `⚠️ ${lastError || "Connection error. Please try again."}` },
+          ]);
+        }
+      }
+    } // end retry loop
+
+    setIsStreaming(false);
+    inputRef.current?.focus();
   }, [input, isStreaming, messages, activeWorker, user]);
 
   if (!isAuthenticated) return null;
