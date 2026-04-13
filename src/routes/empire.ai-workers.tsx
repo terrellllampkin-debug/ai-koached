@@ -406,8 +406,10 @@ function AIWorkersPage() {
               {[
                 "I want to start a business but don't know where to begin",
                 "I have a business idea, help me build it",
-                "I want to start an e-commerce store",
-                "I want to start a service-based business",
+                "I'm outside the US — help me start a business in my country",
+                "I want to start an international online business",
+                "Help me find a digital nomad visa so I can work remotely",
+                "I want to join the B2B community and sell to other businesses",
               ].map((prompt) => (
                 <button
                   key={prompt}
