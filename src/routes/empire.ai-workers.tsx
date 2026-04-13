@@ -45,6 +45,8 @@ function AIWorkersPage() {
   const [messages, setMessages] = useState<ChatMsg[]>([]);
   const [input, setInput] = useState("");
   const [isStreaming, setIsStreaming] = useState(false);
+  const [dailyIntel, setDailyIntel] = useState<Array<{ id: string; category: string; title: string; content: string }>>([]);
+  const [showIntel, setShowIntel] = useState(false);
   const chatEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
