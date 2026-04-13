@@ -52,6 +52,18 @@ function AIWorkersPage() {
 
   const worker = WORKERS.find((w) => w.id === activeWorker) || WORKERS[0];
 
+  // Fetch daily intel
+  useEffect(() => {
+    supabase
+      .from("business_intel")
+      .select("id, category, title, content")
+      .order("intel_date", { ascending: false })
+      .limit(12)
+      .then(({ data }) => {
+        if (data) setDailyIntel(data);
+      });
+  }, []);
+
   // Load chat history for active worker
   useEffect(() => {
     if (!user) return;
