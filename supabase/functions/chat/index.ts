@@ -200,6 +200,7 @@ serve(async (req) => {
           empire_eva: ["entity"],
           revenue_rex: ["revenue", "marketing"],
           koach_coin: ["ai_tools"],
+          profile_builder: ["ai_tools", "marketing"],
         };
         const categories = categoryMap[agent] || ["ai_tools"];
 
