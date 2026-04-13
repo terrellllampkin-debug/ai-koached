@@ -31,11 +31,12 @@ interface ChatMsg {
 
 const WORKERS = [
   { id: "ceo_coach", name: "The Architect", role: "Master Builder", icon: Briefcase, color: "#D4AF37", description: "Interviews you, builds your full business plan, and dispatches AI workers" },
-  { id: "empire_eva", name: "Empire Eva", role: "Entity Formation", icon: Building2, color: "#7F77DD", description: "Files your LLC/S-Corp, gets your EIN, drafts operating agreements" },
+  { id: "profile_builder", name: "Profile Pro", role: "B2B Profile Builder", icon: Users, color: "#9C27B0", description: "Creates your business profile for the B2B community marketplace" },
+  { id: "empire_eva", name: "Empire Eva", role: "Entity Formation (Global)", icon: Building2, color: "#7F77DD", description: "Files entities in any country — US LLC, UK Ltd, Nigerian CAC, UAE Free Zone & more" },
   { id: "max_credit", name: "Max Credit", role: "Personal Credit", icon: CreditCard, color: "#D4AF37", description: "Builds your personal credit profile and score" },
   { id: "biz_credit", name: "Biz Builder Brock", role: "Business Credit", icon: Briefcase, color: "#2196F3", description: "Establishes D&B profile, Paydex score, vendor accounts" },
   { id: "credit_repair", name: "Fix-It Frankie", role: "Credit Repair", icon: Wrench, color: "#E53935", description: "Disputes errors, writes letters, restores your credit" },
-  { id: "revenue_rex", name: "Revenue Rex", role: "Revenue Growth", icon: DollarSign, color: "#4CAF50", description: "Sets up payment processing, pricing, sales funnels" },
+  { id: "revenue_rex", name: "Revenue Rex", role: "Revenue Growth", icon: DollarSign, color: "#4CAF50", description: "Sets up payment processing, pricing, sales funnels — global processors" },
   { id: "koach_coin", name: "KOACHed Coin", role: "$KOACHED Tokens", icon: Coins, color: "#FF9800", description: "Tracks your token earnings and utility" },
 ];
 
