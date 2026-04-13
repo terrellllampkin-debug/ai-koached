@@ -44,6 +44,39 @@ export type Database = {
         }
         Relationships: []
       }
+      business_intel: {
+        Row: {
+          category: string
+          content: string
+          created_at: string
+          id: string
+          intel_date: string
+          relevance_score: number | null
+          source_url: string | null
+          title: string
+        }
+        Insert: {
+          category: string
+          content: string
+          created_at?: string
+          id?: string
+          intel_date?: string
+          relevance_score?: number | null
+          source_url?: string | null
+          title: string
+        }
+        Update: {
+          category?: string
+          content?: string
+          created_at?: string
+          id?: string
+          intel_date?: string
+          relevance_score?: number | null
+          source_url?: string | null
+          title?: string
+        }
+        Relationships: []
+      }
       chat_messages: {
         Row: {
           agent: string
