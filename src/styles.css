@@ -113,3 +113,57 @@
     font-family: var(--font-heading);
   }
 }
+
+/* Glassmorphism card */
+.glass-card {
+  background: oklch(1 0 0 / 3%);
+  border: 1px solid oklch(0.78 0.13 85 / 15%);
+  backdrop-filter: blur(20px);
+  border-radius: 16px;
+  position: relative;
+}
+.glass-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, oklch(0.78 0.13 85 / 30%), transparent);
+  border-radius: 16px 16px 0 0;
+}
+
+/* Shimmer animation */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.shimmer {
+  background: linear-gradient(90deg, transparent 0%, oklch(0.78 0.13 85 / 25%) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* Pulse glow */
+@keyframes pulse-gold {
+  0%, 100% { box-shadow: 0 0 20px oklch(0.78 0.13 85 / 15%); }
+  50% { box-shadow: 0 0 40px oklch(0.78 0.13 85 / 35%); }
+}
+.pulse-gold { animation: pulse-gold 3s ease-in-out infinite; }
+
+/* Score ring */
+.score-ring {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Sidebar active gold */
+.nav-active {
+  background: linear-gradient(90deg, oklch(0.78 0.13 85 / 15%), transparent);
+  border-left: 2px solid oklch(0.78 0.13 85);
+  box-shadow: -4px 0 20px oklch(0.78 0.13 85 / 10%) inset;
+}
