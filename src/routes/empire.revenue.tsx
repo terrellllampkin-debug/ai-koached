@@ -6,7 +6,6 @@ import { useState, useEffect } from "react";
 import { DollarSign, TrendingUp, Target, Zap, Plus, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Progress } from "@/components/ui/progress";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 
 export const Route = createFileRoute("/empire/revenue")({
@@ -20,10 +19,10 @@ export const Route = createFileRoute("/empire/revenue")({
 });
 
 const processors = [
-  { name: "Stripe", status: "Recommended", monthlyVol: "$0-$50K", fees: "2.9% + $0.30" },
-  { name: "Square", status: "Active", monthlyVol: "$0-$25K", fees: "2.6% + $0.10" },
-  { name: "PayPal", status: "Backup", monthlyVol: "$0-$100K", fees: "2.99% + $0.49" },
-  { name: "Shopify Payments", status: "E-commerce", monthlyVol: "$0-$100K", fees: "2.9% + $0.30" },
+  { name: "Stripe", status: "Recommended", monthlyVol: "$0-$50K", fees: "2.9% + $0.30", color: "#635bff", rotation: "Jan–Apr", loanEligible: true },
+  { name: "Square", status: "Active", monthlyVol: "$0-$25K", fees: "2.6% + $0.10", color: "#3eb489", rotation: "May–Aug", loanEligible: false },
+  { name: "PayPal", status: "Backup", monthlyVol: "$0-$100K", fees: "2.99% + $0.49", color: "#003087", rotation: "Sep–Dec", loanEligible: true },
+  { name: "Shopify Payments", status: "E-commerce", monthlyVol: "$0-$100K", fees: "2.9% + $0.30", color: "#96bf48", rotation: "Rotating", loanEligible: false },
 ];
 
 function RevenuePage() {
@@ -44,7 +43,6 @@ function RevenuePage() {
     if (!user) return;
     loadRevenue();
 
-    // Realtime subscription
     const channel = supabase
       .channel("revenue-realtime")
       .on("postgres_changes", { event: "*", schema: "public", table: "revenue_logs", filter: `user_id=eq.${user.id}` }, () => {
@@ -105,7 +103,7 @@ function RevenuePage() {
           </div>
           <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
             <DialogTrigger asChild>
-              <Button size="sm" className="bg-primary text-primary-foreground gap-1">
+              <Button size="sm" className="gap-1" style={{ background: "linear-gradient(135deg, oklch(0.78 0.13 85), oklch(0.65 0.13 85))", color: "oklch(0.145 0.005 285)", boxShadow: "0 4px 20px oklch(0.78 0.13 85 / 25%)" }}>
                 <Plus className="w-4 h-4" /> Log Revenue
               </Button>
             </DialogTrigger>
@@ -125,40 +123,50 @@ function RevenuePage() {
           </Dialog>
         </div>
 
-        {/* Revenue Goal */}
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="p-6 rounded-xl border border-border bg-card mb-6">
+        {/* Revenue Goal — Premium */}
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="glass-card p-6 mb-6">
           <div className="flex items-center justify-between mb-4">
             <h2 className="font-heading text-lg font-semibold flex items-center gap-2">
               <Target className="w-5 h-5 text-primary" />
               Monthly Revenue Goal
             </h2>
-            <span className="font-mono text-2xl font-bold text-primary">
+            <span className="font-mono font-bold text-primary" style={{ fontSize: "42px", lineHeight: 1, textShadow: "0 0 30px oklch(0.78 0.13 85 / 30%)" }}>
               {loading ? "..." : `$${monthlyTotal.toLocaleString()}`}
             </span>
           </div>
-          <Progress value={percentage} className="h-3 mb-2" />
-          <div className="flex items-center justify-between text-xs text-muted-foreground">
+          {/* Shimmer progress bar */}
+          <div className="relative h-4 rounded-full bg-muted overflow-hidden mb-2">
+            <div
+              className="absolute inset-y-0 left-0 rounded-full transition-all duration-700"
+              style={{
+                width: `${percentage}%`,
+                background: "linear-gradient(90deg, oklch(0.78 0.13 85), oklch(0.65 0.13 85))",
+              }}
+            />
+            <div className="absolute inset-0 shimmer rounded-full" style={{ width: `${percentage}%` }} />
+          </div>
+          <div className="flex items-center justify-between text-xs text-muted-foreground font-mono">
             <span>${monthlyTotal.toLocaleString()} earned</span>
             <span>${goal.toLocaleString()} goal</span>
           </div>
           <p className="mt-3 text-sm text-muted-foreground">
-            ${(goal - monthlyTotal).toLocaleString()} to go! You're {percentage.toFixed(0)}% there 🚀
+            ${(goal - monthlyTotal).toLocaleString()} to go! You're <span className="font-mono font-bold text-primary">{percentage.toFixed(0)}%</span> there 🚀
           </p>
         </motion.div>
 
-        {/* Recent Revenue Entries */}
+        {/* Recent Revenue */}
         {logs.length > 0 && (
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }} className="p-6 rounded-xl border border-border bg-card mb-6">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }} className="glass-card p-6 mb-6">
             <h2 className="font-heading text-lg font-semibold mb-4 flex items-center gap-2">
               <TrendingUp className="w-5 h-5 text-primary" />
               This Month's Revenue
             </h2>
             <div className="space-y-2">
               {logs.map((log) => (
-                <div key={log.id} className="flex items-center justify-between py-2 border-b border-border last:border-0">
+                <div key={log.id} className="flex items-center justify-between py-2 border-b border-border/50 last:border-0">
                   <div>
                     <p className="text-sm">{log.description || log.source}</p>
-                    <p className="text-[10px] text-muted-foreground">{new Date(log.logged_date).toLocaleDateString()} • {log.source}</p>
+                    <p className="text-[10px] text-muted-foreground font-mono">{new Date(log.logged_date).toLocaleDateString()} • {log.source}</p>
                   </div>
                   <span className="font-mono text-sm font-bold text-success">+${Number(log.amount).toLocaleString()}</span>
                 </div>
@@ -167,31 +175,41 @@ function RevenuePage() {
           </motion.div>
         )}
 
-        {/* Processor Rotation */}
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="p-6 rounded-xl border border-border bg-card">
+        {/* Processor Rotation — Color Coded */}
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="glass-card p-6">
           <h2 className="font-heading text-lg font-semibold mb-2 flex items-center gap-2">
             <Zap className="w-5 h-5 text-primary" />
             Processor Rotation Strategy
           </h2>
           <p className="text-xs text-muted-foreground mb-4">
-            Rotate processors to build transaction history across multiple providers.
+            Rotate processors to build transaction history across multiple providers — positions you for business loans.
           </p>
-          <div className="space-y-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {processors.map((p) => (
-              <div key={p.name} className="flex items-center justify-between p-3 rounded-lg border border-border">
-                <div>
-                  <p className="text-sm font-medium">{p.name}</p>
-                  <p className="text-[10px] text-muted-foreground">Volume: {p.monthlyVol}</p>
-                </div>
-                <div className="text-right">
-                  <p className="text-xs font-mono text-muted-foreground">{p.fees}</p>
-                  <span className={`text-[10px] px-2 py-0.5 rounded-full ${
-                    p.status === "Recommended" ? "bg-primary/10 text-primary" :
-                    p.status === "Active" ? "bg-success/10 text-success" :
-                    "bg-muted text-muted-foreground"
-                  }`}>
+              <div
+                key={p.name}
+                className="p-4 rounded-xl border transition-all hover:scale-[1.02]"
+                style={{
+                  borderColor: p.color + "40",
+                  background: p.color + "08",
+                }}
+              >
+                <div className="flex items-center justify-between mb-2">
+                  <p className="text-sm font-heading font-semibold" style={{ color: p.color }}>{p.name}</p>
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded-full border" style={{ borderColor: p.color + "40", color: p.color }}>
                     {p.status}
                   </span>
+                </div>
+                <div className="space-y-1 text-xs text-muted-foreground">
+                  <p className="font-mono">Fees: {p.fees}</p>
+                  <p className="font-mono">Rotation: {p.rotation}</p>
+                  <p className="font-mono">
+                    Loan Eligible: {p.loanEligible ? (
+                      <span className="text-success font-bold">✓ Yes</span>
+                    ) : (
+                      <span className="text-muted-foreground">Not yet</span>
+                    )}
+                  </p>
                 </div>
               </div>
             ))}
