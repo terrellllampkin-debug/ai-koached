@@ -5,16 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
-
-const agentProfiles: Record<string, { name: string; specialty: string; color: string; emoji: string }> = {
-  ceo_coach: { name: "The Architect", specialty: "Master Business Builder", color: "#D4AF37", emoji: "🏗️" },
-  max_credit: { name: "Max Credit", specialty: "Personal Credit Specialist", color: "#D4AF37", emoji: "💳" },
-  biz_credit: { name: "Biz Builder Brock", specialty: "Business Credit Specialist", color: "#2196F3", emoji: "🏢" },
-  credit_repair: { name: "Fix-It Frankie", specialty: "Credit Repair Specialist", color: "#E53935", emoji: "🔧" },
-  empire_eva: { name: "Empire Eva", specialty: "Entity Formation Expert", color: "#7F77DD", emoji: "🏛️" },
-  revenue_rex: { name: "Revenue Rex", specialty: "Revenue Growth Strategist", color: "#4CAF50", emoji: "💰" },
-  koach_coin: { name: "KOACHed Coin", specialty: "$KOACHED Token Advisor", color: "#FF9800", emoji: "🪙" },
-};
+import { agentProfiles } from "@/components/agents/agentProfiles";
 
 interface Message {
   role: "user" | "assistant";
@@ -163,38 +154,67 @@ export function AIChatPanel({ agent, onClose }: AIChatPanelProps) {
         animate={{ x: 0, opacity: 1 }}
         exit={{ x: 400, opacity: 0 }}
         transition={{ type: "spring", damping: 25, stiffness: 200 }}
-        className="absolute right-0 top-0 bottom-0 w-full max-w-md z-30 flex flex-col bg-background/95 backdrop-blur-xl border-l border-border"
+        className="absolute right-0 top-0 bottom-0 w-full max-w-md z-30 flex flex-col backdrop-blur-xl border-l"
+        style={{
+          background: profile.gradient,
+          borderColor: profile.color + "30",
+        }}
       >
-        {/* Header */}
-        <div className="flex items-center justify-between px-4 py-3 border-b border-border">
-          <div className="flex items-center gap-3">
-            <div
-              className="w-10 h-10 rounded-full flex items-center justify-center text-lg"
-              style={{ backgroundColor: profile.color + "20" }}
-            >
-              {profile.emoji}
+        {/* Header with large character */}
+        <div className="relative overflow-hidden border-b" style={{ borderColor: profile.color + "20" }}>
+          <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" />
+          <div className="relative z-10 px-4 pt-3 pb-2">
+            <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center gap-1.5">
+                <motion.div
+                  className="w-2 h-2 rounded-full bg-green-500"
+                  animate={{ scale: [1, 1.3, 1] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                />
+                <span className="text-[9px] font-mono text-green-400">ONLINE</span>
+              </div>
+              <div className="flex items-center gap-2">
+                {koachEarned > 0 && (
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    className="flex items-center gap-1 rounded-full px-2 py-1"
+                    style={{ backgroundColor: profile.color + "20" }}
+                  >
+                    <Coins className="w-3 h-3" style={{ color: profile.color }} />
+                    <span className="text-[10px] font-mono font-bold" style={{ color: profile.color }}>+{koachEarned}</span>
+                  </motion.div>
+                )}
+                <Button variant="ghost" size="icon" onClick={onClose} className="h-8 w-8 text-white/60 hover:text-white">
+                  <X className="w-4 h-4" />
+                </Button>
+              </div>
             </div>
-            <div>
-              <h3 className="text-sm font-heading font-semibold" style={{ color: profile.color }}>
-                {profile.name}
-              </h3>
-              <p className="text-[10px] text-muted-foreground">{profile.specialty}</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-2">
-            {koachEarned > 0 && (
+            <div className="flex items-center gap-3">
               <motion.div
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                className="flex items-center gap-1 bg-primary/10 rounded-full px-2 py-1"
+                className="w-16 h-16 rounded-xl overflow-hidden shrink-0 relative"
+                animate={{ y: [0, -3, 0] }}
+                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
               >
-                <Coins className="w-3 h-3 text-primary" />
-                <span className="text-[10px] font-mono font-bold text-primary">+{koachEarned}</span>
+                <img
+                  src={profile.image}
+                  alt={profile.name}
+                  className="w-full h-full object-contain"
+                  width={512}
+                  height={512}
+                />
+                <div
+                  className="absolute inset-0 -z-10 blur-xl opacity-40 rounded-full"
+                  style={{ backgroundColor: profile.color }}
+                />
               </motion.div>
-            )}
-            <Button variant="ghost" size="icon" onClick={onClose} className="h-8 w-8">
-              <X className="w-4 h-4" />
-            </Button>
+              <div>
+                <h3 className="text-sm font-heading font-bold" style={{ color: profile.color }}>
+                  {profile.name}
+                </h3>
+                <p className="text-[10px] text-white/50">{profile.specialty}</p>
+              </div>
+            </div>
           </div>
         </div>
 

@@ -12,6 +12,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
+import { agentProfiles } from "@/components/agents/agentProfiles";
 
 export const Route = createFileRoute("/empire/ai-workers")({
   head: () => ({
@@ -449,10 +450,21 @@ function AIWorkersPage() {
                   )}
                 >
                   <div
-                    className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 mt-0.5 relative"
+                    className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0 mt-0.5 relative overflow-hidden"
                     style={{ backgroundColor: w.color + "20" }}
                   >
-                    <w.icon className="w-4 h-4" style={{ color: w.color }} />
+                    {agentProfiles[w.id] ? (
+                      <img
+                        src={agentProfiles[w.id].image}
+                        alt={w.name}
+                        className="w-full h-full object-contain"
+                        loading="lazy"
+                        width={64}
+                        height={64}
+                      />
+                    ) : (
+                      <w.icon className="w-4 h-4" style={{ color: w.color }} />
+                    )}
                     {isPhaseComplete && (
                       <div className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-green-500 rounded-full flex items-center justify-center">
                         <CheckCircle2 className="w-2.5 h-2.5 text-white" />
@@ -542,10 +554,24 @@ function AIWorkersPage() {
           {/* Chat header with journey progress */}
           <div className="flex items-center gap-3 px-6 py-4 border-b border-border bg-card/50">
             <div
-              className="w-10 h-10 rounded-xl flex items-center justify-center"
+              className="w-12 h-12 rounded-xl overflow-hidden shrink-0"
               style={{ backgroundColor: worker.color + "15" }}
             >
-              <worker.icon className="w-5 h-5" style={{ color: worker.color }} />
+              {agentProfiles[activeWorker] ? (
+                <motion.img
+                  src={agentProfiles[activeWorker].image}
+                  alt={worker.name}
+                  className="w-full h-full object-contain"
+                  animate={{ y: [0, -2, 0] }}
+                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                  width={64}
+                  height={64}
+                />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center">
+                  <worker.icon className="w-5 h-5" style={{ color: worker.color }} />
+                </div>
+              )}
             </div>
             <div className="flex-1">
               <div className="flex items-center gap-2">
@@ -599,10 +625,16 @@ function AIWorkersPage() {
                 <div className={cn("flex items-start gap-2 max-w-[75%]")}>
                   {msg.role === "assistant" && (
                     <div
-                      className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0 mt-1"
+                      className="w-8 h-8 rounded-lg overflow-hidden shrink-0 mt-1"
                       style={{ backgroundColor: worker.color + "20" }}
                     >
-                      <worker.icon className="w-3.5 h-3.5" style={{ color: worker.color }} />
+                      {agentProfiles[activeWorker] ? (
+                        <img src={agentProfiles[activeWorker].image} alt={worker.name} className="w-full h-full object-contain" width={32} height={32} />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center">
+                          <worker.icon className="w-3.5 h-3.5" style={{ color: worker.color }} />
+                        </div>
+                      )}
                     </div>
                   )}
                   <div
