@@ -6,6 +6,7 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import {
   Building2, CreditCard, DollarSign, Coins, Send, Sparkles,
   Bot, ChevronRight, ArrowRight, Wrench, Briefcase, Users,
+  Newspaper, Zap,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -44,10 +45,24 @@ function AIWorkersPage() {
   const [messages, setMessages] = useState<ChatMsg[]>([]);
   const [input, setInput] = useState("");
   const [isStreaming, setIsStreaming] = useState(false);
+  const [dailyIntel, setDailyIntel] = useState<Array<{ id: string; category: string; title: string; content: string }>>([]);
+  const [showIntel, setShowIntel] = useState(false);
   const chatEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const worker = WORKERS.find((w) => w.id === activeWorker) || WORKERS[0];
+
+  // Fetch daily intel
+  useEffect(() => {
+    supabase
+      .from("business_intel")
+      .select("id, category, title, content")
+      .order("intel_date", { ascending: false })
+      .limit(12)
+      .then(({ data }) => {
+        if (data) setDailyIntel(data);
+      });
+  }, []);
 
   // Load chat history for active worker
   useEffect(() => {
@@ -241,6 +256,53 @@ function AIWorkersPage() {
               );
             })}
           </div>
+
+          {/* Daily Intel Toggle */}
+          {dailyIntel.length > 0 && (
+            <div className="px-2 pb-1">
+              <button
+                onClick={() => setShowIntel(!showIntel)}
+                className={cn(
+                  "w-full flex items-center gap-2 p-2.5 rounded-lg text-left transition-all text-xs font-semibold",
+                  showIntel
+                    ? "bg-accent/10 text-accent border border-accent/30"
+                    : "text-muted-foreground hover:bg-muted/50 border border-transparent"
+                )}
+              >
+                <Newspaper className="w-4 h-4" />
+                <span>Daily Intel</span>
+                <Zap className="w-3 h-3 ml-auto text-accent" />
+              </button>
+            </div>
+          )}
+
+          {/* Daily Intel Panel */}
+          <AnimatePresence>
+            {showIntel && dailyIntel.length > 0 && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: "auto", opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                className="overflow-hidden px-2"
+              >
+                <div className="space-y-1.5 pb-2 max-h-48 overflow-y-auto">
+                  {dailyIntel.slice(0, 8).map((item) => (
+                    <div
+                      key={item.id}
+                      className="p-2 rounded-lg bg-muted/30 border border-border"
+                    >
+                      <div className="flex items-center gap-1 mb-0.5">
+                        <span className="text-[8px] font-mono uppercase text-accent font-bold">
+                          {item.category.replace("_", " ")}
+                        </span>
+                      </div>
+                      <p className="text-[10px] font-medium leading-tight">{item.title}</p>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
 
           {/* Start fresh */}
           <div className="p-3 border-t border-border">
