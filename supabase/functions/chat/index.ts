@@ -1,4 +1,5 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.4";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -129,9 +130,47 @@ serve(async (req) => {
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     if (!LOVABLE_API_KEY) throw new Error("LOVABLE_API_KEY is not configured");
 
+    // Fetch latest daily intel to inject as context
+    let intelContext = "";
+    try {
+      const SUPABASE_URL = Deno.env.get("SUPABASE_URL");
+      const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
+      if (SUPABASE_URL && SUPABASE_SERVICE_ROLE_KEY) {
+        const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
+
+        // Map agent to relevant categories
+        const categoryMap: Record<string, string[]> = {
+          ceo_coach: ["ai_tools", "funding", "revenue", "marketing"],
+          max_credit: ["credit"],
+          biz_credit: ["credit", "funding"],
+          credit_repair: ["credit"],
+          empire_eva: ["entity"],
+          revenue_rex: ["revenue", "marketing"],
+          koach_coin: ["ai_tools"],
+        };
+        const categories = categoryMap[agent] || ["ai_tools"];
+
+        const { data: intel } = await supabase
+          .from("business_intel")
+          .select("title, content, category")
+          .in("category", categories)
+          .order("intel_date", { ascending: false })
+          .limit(8);
+
+        if (intel && intel.length > 0) {
+          intelContext = "\n\n--- LATEST BUSINESS INTEL (use this to give current, up-to-date advice) ---\n" +
+            intel.map((i) => `• [${i.category.toUpperCase()}] ${i.title}: ${i.content}`).join("\n") +
+            "\n--- END INTEL ---\n\nReference this intel naturally when relevant. Don't list it all at once — weave it into your advice.";
+        }
+      }
+    } catch (err) {
+      console.error("Failed to fetch intel:", err);
+    }
+
     const systemPrompt =
-      agentSystemPrompts[agent] ||
-      "You are a helpful AI business coach at AI KOACHED. Help the user build their business empire. Never use the word 'promise' or 'guarantee results.' Always use legally safe language like 'designed to help,' 'our system is built to,' and 'members who follow the system typically.'";
+      (agentSystemPrompts[agent] ||
+        "You are a helpful AI business coach at AI KOACHED. Help the user build their business empire. Never use the word 'promise' or 'guarantee results.' Always use legally safe language like 'designed to help,' 'our system is built to,' and 'members who follow the system typically.'") +
+      intelContext;
 
     const response = await fetch(
       "https://ai.gateway.lovable.dev/v1/chat/completions",
