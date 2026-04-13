@@ -50,15 +50,16 @@ export function EmpireNav() {
   return (
     <aside
       className={cn(
-        "fixed left-0 top-0 bottom-0 z-40 flex flex-col bg-sidebar border-r border-sidebar-border transition-all duration-300",
+        "fixed left-0 top-0 bottom-0 z-40 flex flex-col border-r border-sidebar-border transition-all duration-300",
         collapsed ? "w-16" : "w-56"
       )}
+      style={{ background: "linear-gradient(180deg, oklch(0.12 0.005 285) 0%, oklch(0.10 0.005 285) 100%)" }}
     >
       {/* Logo */}
       <div className="flex items-center gap-2 px-3 py-4 border-b border-sidebar-border">
         <Logo size={28} />
         {!collapsed && (
-          <span className="font-heading text-xs font-bold tracking-wider text-sidebar-primary truncate">
+          <span className="font-heading text-xs font-bold tracking-wider text-primary truncate">
             AI KOACHED
           </span>
         )}
@@ -75,14 +76,17 @@ export function EmpireNav() {
               key={item.to}
               to={item.to}
               className={cn(
-                "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-colors",
+                "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-all duration-200",
                 isActive
-                  ? "bg-sidebar-accent text-sidebar-accent-foreground font-medium"
-                  : "text-sidebar-foreground/70 hover:bg-sidebar-accent/50 hover:text-sidebar-foreground"
+                  ? "nav-active text-primary font-medium"
+                  : "text-sidebar-foreground/60 hover:text-sidebar-foreground hover:bg-primary/5"
               )}
               title={collapsed ? item.label : undefined}
             >
-              <item.icon className={cn("w-4 h-4 shrink-0", isActive && "text-sidebar-primary")} />
+              <item.icon className={cn(
+                "w-4 h-4 shrink-0 transition-colors",
+                isActive ? "text-primary drop-shadow-[0_0_6px_oklch(0.78_0.13_85/40%)]" : ""
+              )} />
               {!collapsed && <span className="truncate">{item.label}</span>}
             </Link>
           );
@@ -91,27 +95,27 @@ export function EmpireNav() {
 
       {/* Balance */}
       {!collapsed && (
-        <div className="mx-2 mb-2 p-3 rounded-lg bg-sidebar-accent/30 border border-sidebar-border">
+        <div className="mx-2 mb-2 p-3 rounded-xl glass-card">
           <div className="flex items-center gap-2">
-            <Coins className="w-4 h-4 text-sidebar-primary" />
-            <span className="font-mono text-sm font-bold text-sidebar-primary">
+            <Coins className="w-4 h-4 text-primary" />
+            <span className="font-mono text-sm font-bold text-primary">
               {koachBalance.toLocaleString()}
             </span>
           </div>
-          <p className="text-[10px] text-sidebar-foreground/50 mt-0.5">$KOACHED Balance</p>
+          <p className="text-[10px] text-muted-foreground mt-0.5">$KOACHED Balance</p>
         </div>
       )}
 
       {/* User */}
       <div className="border-t border-sidebar-border px-2 py-3">
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-full bg-sidebar-primary/20 flex items-center justify-center shrink-0">
-            <User className="w-4 h-4 text-sidebar-primary" />
+          <div className="w-8 h-8 rounded-full bg-primary/15 flex items-center justify-center shrink-0 ring-1 ring-primary/20">
+            <User className="w-4 h-4 text-primary" />
           </div>
           {!collapsed && (
             <div className="flex-1 min-w-0">
               <p className="text-xs font-medium text-sidebar-foreground truncate">{displayName}</p>
-              <p className="text-[10px] text-sidebar-foreground/50">Free Tier</p>
+              <p className="text-[10px] text-muted-foreground font-mono">Free Tier</p>
             </div>
           )}
           <Button
@@ -129,7 +133,7 @@ export function EmpireNav() {
       {/* Collapse toggle */}
       <button
         onClick={() => setCollapsed(!collapsed)}
-        className="absolute -right-3 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-sidebar-primary text-sidebar-primary-foreground flex items-center justify-center shadow-md hover:scale-110 transition-transform"
+        className="absolute -right-3 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-primary text-primary-foreground flex items-center justify-center shadow-md hover:scale-110 transition-transform"
       >
         {collapsed ? <ChevronRight className="w-3 h-3" /> : <ChevronLeft className="w-3 h-3" />}
       </button>
