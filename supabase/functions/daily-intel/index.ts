@@ -10,27 +10,35 @@ const corsHeaders = {
 const CATEGORIES = [
   {
     key: "ai_tools",
-    prompt: "List 3-4 of the newest AI tools, platforms, or updates in 2026 that small business owners should know about. Include automation tools, AI agents, no-code builders, and AI marketing tools. Be specific with names and what they do.",
+    prompt: "List 3-4 of the newest AI tools, platforms, or updates in 2026 that small business owners WORLDWIDE should know about. Include AI agents (OpenClaw, Box Agent, Zendesk AI agents), no-code builders, AI marketing tools, and automation platforms. Mention both US and international tools. Be specific with names and what they do.",
   },
   {
     key: "credit",
-    prompt: "List 3-4 current credit building and repair updates for 2026: new credit card offers, changes to FICO scoring, new Net-30 vendor programs, credit bureau updates, or new fintech credit products. Be specific.",
+    prompt: "List 3-4 current credit building and repair updates for 2026 GLOBALLY: US FICO updates, UK Experian/Equifax changes, Nigeria Credit Direct/CreditRegistry, India CIBIL updates, fintech credit builders like Xente (Uganda), CreditLadder (UK), and new Net-30 vendor programs. Be specific.",
   },
   {
     key: "entity",
-    prompt: "List 3-4 current business entity and legal updates for 2026: new state filing changes, beneficial ownership reporting (BOI) updates, IRS changes, new LLC/Corp regulations, or tax law changes affecting small businesses.",
+    prompt: "List 3-4 current business entity and legal updates for 2026 WORLDWIDE: US BOI reporting, UK Companies House changes, UAE free zone updates, Nigeria CAC digital registration, India MCA updates, EU AI Act enforcement, and any new country adding digital business registration. Be specific.",
   },
   {
     key: "revenue",
-    prompt: "List 3-4 current revenue and marketing updates for 2026: new payment processors, social media algorithm changes, e-commerce trends, pricing strategies, new sales funnel tools, or ad platform updates.",
+    prompt: "List 3-4 current revenue and marketing updates for 2026 GLOBALLY: new payment processors (Paystack, Razorpay, Mercado Pago updates), cross-border payment solutions (Wise, Payoneer), social media algorithm changes, e-commerce trends in Africa/Asia/Europe, and global pricing strategies.",
   },
   {
     key: "funding",
-    prompt: "List 3-4 current small business funding updates for 2026: new SBA loan programs, grant opportunities, crowdfunding platforms, venture capital trends, or alternative lending options.",
+    prompt: "List 3-4 current small business funding updates for 2026 WORLDWIDE: US SBA programs, UK Start Up Loans, AfDB grants for Africa, India MUDRA loans, UAE SME funding, international crowdfunding, and global venture capital trends for underrepresented founders.",
   },
   {
     key: "marketing",
-    prompt: "List 3-4 current digital marketing updates for 2026: new social platforms, SEO changes, email marketing trends, influencer marketing shifts, or content creation AI tools.",
+    prompt: "List 3-4 current digital marketing updates for 2026 GLOBALLY: social platforms popular in different regions (WhatsApp Business in Africa, LINE in Japan, WeChat in China), SEO changes, email marketing trends, and content creation AI tools available internationally.",
+  },
+  {
+    key: "global_formation",
+    prompt: "List 3-4 updates about starting businesses INTERNATIONALLY in 2026: new digital nomad visa programs (70+ countries now offer them — Croatia 18-month tax-free, Philippines DNV, Portugal D8), best countries for startups (UAE #1, Singapore #2, UK #4), non-resident LLC options (Wyoming, Delaware), and remote business registration updates. Be specific with country names and programs.",
+  },
+  {
+    key: "global_fintech",
+    prompt: "List 3-4 updates about INTERNATIONAL fintech and business banking in 2026: best business bank accounts for startups in UK (Starling, Tide), UAE (Wio, Mashreq Neo), Nigeria (Moniepoint, Kuda Business), global neobanks (Mercury, Relay, Wise Business), and cross-border payment innovations. Be specific.",
   },
 ];
 
@@ -50,7 +58,6 @@ serve(async (req) => {
 
     const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
 
-    // Check if we already generated intel today
     const today = new Date().toISOString().split("T")[0];
     const { data: existing } = await supabase
       .from("business_intel")
@@ -67,7 +74,6 @@ serve(async (req) => {
 
     const results: Array<{ category: string; title: string; content: string }> = [];
 
-    // Generate intel for each category
     for (const cat of CATEGORIES) {
       try {
         const response = await fetch(
@@ -84,7 +90,7 @@ serve(async (req) => {
                 {
                   role: "system",
                   content:
-                    "You are a business intelligence analyst for AI KOACHED, a platform that helps people build businesses with AI. Generate actionable, current intel updates. Format each update as a short paragraph. Be specific with tool names, dates, and actionable advice. Do NOT use generic filler. Every update should be something a business owner can act on TODAY.",
+                    "You are a GLOBAL business intelligence analyst for AI KOACHED, a platform that helps people worldwide build businesses with AI. Generate actionable, current intel updates covering MULTIPLE COUNTRIES — not just the US. Include updates from Africa, Asia, Europe, Middle East, Caribbean, and Latin America. Format each update as a short paragraph. Be specific with tool names, country names, dates, and actionable advice. Every update should be something a business owner ANYWHERE in the world can act on TODAY.",
                 },
                 {
                   role: "user",
@@ -141,14 +147,12 @@ serve(async (req) => {
           }
         }
 
-        // Small delay between requests to avoid rate limits
         await new Promise((r) => setTimeout(r, 1500));
       } catch (err) {
         console.error(`Failed to generate intel for ${cat.key}:`, err);
       }
     }
 
-    // Insert all intel into database
     if (results.length > 0) {
       const rows = results.map((r) => ({
         category: r.category,
