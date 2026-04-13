@@ -1,6 +1,6 @@
 ---
 name: Legal compliance rules
-description: CROA, FTC, SEC language rules — never say promise, guarantee results, you will make money
+description: CROA, FTC, SEC, 2026 FCRA, FTC AI Policy, TSR — never say promise, guarantee results, no advance fees
 type: constraint
 ---
 NEVER use these words in any copy or AI agent responses:
@@ -16,10 +16,24 @@ ALWAYS use instead:
 - "Positions you for" instead of "you will get"
 - "$12K/month is the goal the system is built around" (not guaranteed income)
 
-FOUR REQUIRED DISCLAIMERS (on landing page footer):
-1. General: Results vary. Tools & guidance, not guaranteed results.
-2. Credit (CROA): Document prep only. No score guarantees. 15 U.S.C. §1679.
-3. Income: $12K/month is aspirational, not guaranteed.
-4. Market: Not financial advice. Investing involves risk.
+KEY 2026 LAWS:
+1. CROA (15 U.S.C. §1679) — No advance fees, doc prep only, 3-day cancel
+2. TSR (16 CFR Part 310) — No advance fees for credit repair, written contract required
+3. 2026 FCRA Updates — Specific disputes required (no generic templates), higher furnisher verification, inconclusive data must be deleted, cross-bureau discrepancies = high-risk
+4. FTC AI Policy Statement (RAI-US-NA-ENFORCE-2026, eff. March 11, 2026) — AI transparency, no deceptive claims, content disclosure, data handling, human oversight
+5. TCPA/FCC — AI-powered communications require consent, no AI robocalls without consent
+
+REQUIRED DISCLAIMERS (on legal page — 11 total sections):
+1. General platform disclaimer
+2. CROA consumer credit file rights
+3. $KOACHED utility token (not security, $0 pre-launch)
+4. Market data & financial
+5. Income & earnings
+6. Entity formation
+7. Grant application
+8. 2026 FCRA compliance
+9. FTC AI Policy Statement compliance
+10. International operations
+11. TSR compliance
 
 All AI agents have compliance language baked into system prompts.
