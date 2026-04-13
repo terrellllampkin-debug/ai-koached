@@ -265,7 +265,39 @@ serve(async (req) => {
   }
 
   try {
-    const { messages, agent } = await req.json();
+    const body = await req.json();
+    const messages = body?.messages;
+    const agent = body?.agent;
+
+    // Input validation
+    if (!Array.isArray(messages) || messages.length === 0 || messages.length > 100) {
+      return new Response(
+        JSON.stringify({ error: "Invalid messages format" }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+    if (typeof agent !== "string" || agent.length > 50 || !/^[a-z_]+$/.test(agent)) {
+      return new Response(
+        JSON.stringify({ error: "Invalid agent" }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+    // Validate each message
+    for (const msg of messages) {
+      if (!msg || typeof msg.content !== "string" || msg.content.length > 10000) {
+        return new Response(
+          JSON.stringify({ error: "Message content too long or invalid" }),
+          { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        );
+      }
+      if (msg.role !== "user" && msg.role !== "assistant") {
+        return new Response(
+          JSON.stringify({ error: "Invalid message role" }),
+          { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        );
+      }
+    }
+
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     if (!LOVABLE_API_KEY) throw new Error("LOVABLE_API_KEY is not configured");
 
