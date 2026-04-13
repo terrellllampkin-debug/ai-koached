@@ -12,6 +12,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
+import { agentProfiles } from "@/components/agents/agentProfiles";
 
 export const Route = createFileRoute("/empire/ai-workers")({
   head: () => ({
