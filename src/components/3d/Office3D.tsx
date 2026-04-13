@@ -1,5 +1,5 @@
 import { Canvas, useFrame } from "@react-three/fiber";
-import { OrbitControls, Environment, Text, Float, ContactShadows, RoundedBox, MeshReflectorMaterial } from "@react-three/drei";
+import { OrbitControls, Environment, Text, Float, ContactShadows, RoundedBox } from "@react-three/drei";
 import { Suspense, useRef, useMemo, useState } from "react";
 import * as THREE from "three";
 
@@ -279,17 +279,7 @@ function Floor() {
   return (
     <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]} receiveShadow>
       <planeGeometry args={[24, 24]} />
-      <MeshReflectorMaterial
-        blur={[300, 100]}
-        resolution={512}
-        mixBlur={1}
-        mixStrength={0.6}
-        roughness={0.85}
-        depthScale={1.2}
-        color="#0d0d18"
-        metalness={0.15}
-        mirror={0.4}
-      />
+      <meshPhysicalMaterial color="#0d0d18" metalness={0.15} roughness={0.6} clearcoat={0.3} clearcoatRoughness={0.4} />
     </mesh>
   );
 }
@@ -449,7 +439,7 @@ export function Office3D({ onDeskClick }: Office3DProps) {
           <pointLight position={[-6, 3, -2]} intensity={0.3} color="#2196F3" distance={8} />
           <pointLight position={[6, 3, -2]} intensity={0.3} color="#7F77DD" distance={8} />
           {/* Rim light from window */}
-          <rectAreaLight position={[0, 4, -5.5]} width={14} height={3} intensity={0.8} color="#1a2a4a" />
+          <spotLight position={[0, 4.5, -5]} intensity={0.6} color="#1a2a4a" angle={1} penumbra={1} />
 
           <Floor />
           <Walls />
