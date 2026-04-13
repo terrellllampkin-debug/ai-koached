@@ -252,6 +252,48 @@ export type Database = {
         }
         Relationships: []
       }
+      compliance_deadlines: {
+        Row: {
+          category: string
+          country: string
+          created_at: string
+          deadline_date: string
+          description: string | null
+          id: string
+          is_completed: boolean
+          reminder_sent: boolean
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          category?: string
+          country?: string
+          created_at?: string
+          deadline_date: string
+          description?: string | null
+          id?: string
+          is_completed?: boolean
+          reminder_sent?: boolean
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          category?: string
+          country?: string
+          created_at?: string
+          deadline_date?: string
+          description?: string | null
+          id?: string
+          is_completed?: boolean
+          reminder_sent?: boolean
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       credit_accounts: {
         Row: {
           account_name: string
