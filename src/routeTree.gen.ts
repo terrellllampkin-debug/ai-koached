@@ -22,6 +22,7 @@ import { Route as EmpireGrantsRouteImport } from './routes/empire.grants'
 import { Route as EmpireEntityRouteImport } from './routes/empire.entity'
 import { Route as EmpireCreditRouteImport } from './routes/empire.credit'
 import { Route as EmpireConnectionsRouteImport } from './routes/empire.connections'
+import { Route as EmpireComplianceRouteImport } from './routes/empire.compliance'
 import { Route as EmpireCommunityRouteImport } from './routes/empire.community'
 import { Route as EmpireBuildRouteImport } from './routes/empire.build'
 import { Route as EmpireAvatarRouteImport } from './routes/empire.avatar'
@@ -93,6 +94,11 @@ const EmpireConnectionsRoute = EmpireConnectionsRouteImport.update({
   path: '/connections',
   getParentRoute: () => EmpireRoute,
 } as any)
+const EmpireComplianceRoute = EmpireComplianceRouteImport.update({
+  id: '/compliance',
+  path: '/compliance',
+  getParentRoute: () => EmpireRoute,
+} as any)
 const EmpireCommunityRoute = EmpireCommunityRouteImport.update({
   id: '/community',
   path: '/community',
@@ -128,6 +134,7 @@ export interface FileRoutesByFullPath {
   '/empire/avatar': typeof EmpireAvatarRoute
   '/empire/build': typeof EmpireBuildRoute
   '/empire/community': typeof EmpireCommunityRouteWithChildren
+  '/empire/compliance': typeof EmpireComplianceRoute
   '/empire/connections': typeof EmpireConnectionsRoute
   '/empire/credit': typeof EmpireCreditRoute
   '/empire/entity': typeof EmpireEntityRoute
@@ -148,6 +155,7 @@ export interface FileRoutesByTo {
   '/empire/avatar': typeof EmpireAvatarRoute
   '/empire/build': typeof EmpireBuildRoute
   '/empire/community': typeof EmpireCommunityRouteWithChildren
+  '/empire/compliance': typeof EmpireComplianceRoute
   '/empire/connections': typeof EmpireConnectionsRoute
   '/empire/credit': typeof EmpireCreditRoute
   '/empire/entity': typeof EmpireEntityRoute
@@ -169,6 +177,7 @@ export interface FileRoutesById {
   '/empire/avatar': typeof EmpireAvatarRoute
   '/empire/build': typeof EmpireBuildRoute
   '/empire/community': typeof EmpireCommunityRouteWithChildren
+  '/empire/compliance': typeof EmpireComplianceRoute
   '/empire/connections': typeof EmpireConnectionsRoute
   '/empire/credit': typeof EmpireCreditRoute
   '/empire/entity': typeof EmpireEntityRoute
@@ -191,6 +200,7 @@ export interface FileRouteTypes {
     | '/empire/avatar'
     | '/empire/build'
     | '/empire/community'
+    | '/empire/compliance'
     | '/empire/connections'
     | '/empire/credit'
     | '/empire/entity'
@@ -211,6 +221,7 @@ export interface FileRouteTypes {
     | '/empire/avatar'
     | '/empire/build'
     | '/empire/community'
+    | '/empire/compliance'
     | '/empire/connections'
     | '/empire/credit'
     | '/empire/entity'
@@ -231,6 +242,7 @@ export interface FileRouteTypes {
     | '/empire/avatar'
     | '/empire/build'
     | '/empire/community'
+    | '/empire/compliance'
     | '/empire/connections'
     | '/empire/credit'
     | '/empire/entity'
@@ -343,6 +355,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EmpireConnectionsRouteImport
       parentRoute: typeof EmpireRoute
     }
+    '/empire/compliance': {
+      id: '/empire/compliance'
+      path: '/compliance'
+      fullPath: '/empire/compliance'
+      preLoaderRoute: typeof EmpireComplianceRouteImport
+      parentRoute: typeof EmpireRoute
+    }
     '/empire/community': {
       id: '/empire/community'
       path: '/community'
@@ -398,6 +417,7 @@ interface EmpireRouteChildren {
   EmpireAvatarRoute: typeof EmpireAvatarRoute
   EmpireBuildRoute: typeof EmpireBuildRoute
   EmpireCommunityRoute: typeof EmpireCommunityRouteWithChildren
+  EmpireComplianceRoute: typeof EmpireComplianceRoute
   EmpireConnectionsRoute: typeof EmpireConnectionsRoute
   EmpireCreditRoute: typeof EmpireCreditRoute
   EmpireEntityRoute: typeof EmpireEntityRoute
@@ -415,6 +435,7 @@ const EmpireRouteChildren: EmpireRouteChildren = {
   EmpireAvatarRoute: EmpireAvatarRoute,
   EmpireBuildRoute: EmpireBuildRoute,
   EmpireCommunityRoute: EmpireCommunityRouteWithChildren,
+  EmpireComplianceRoute: EmpireComplianceRoute,
   EmpireConnectionsRoute: EmpireConnectionsRoute,
   EmpireCreditRoute: EmpireCreditRoute,
   EmpireEntityRoute: EmpireEntityRoute,
