@@ -129,28 +129,43 @@ function AIWorkersPage() {
 
     let assistantSoFar = "";
 
-    try {
-      const resp = await fetch(CHAT_URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
-        },
-        body: JSON.stringify({
-          messages: [...messages, userEntry].map((m) => ({ role: m.role, content: m.content })),
-          agent: activeWorker,
-        }),
-      });
+    const maxRetries = 2;
+    let lastError = "";
 
-      if (!resp.ok || !resp.body) {
-        const err = await resp.json().catch(() => ({ error: "Connection failed" }));
-        setMessages((prev) => [
-          ...prev,
-          { role: "assistant", content: `⚠️ ${err.error || "Something went wrong."}` },
-        ]);
-        setIsStreaming(false);
-        return;
-      }
+    for (let attempt = 0; attempt <= maxRetries; attempt++) {
+      try {
+        if (attempt > 0) {
+          await new Promise((r) => setTimeout(r, 1000 * attempt));
+          setMessages((prev) => {
+            const last = prev[prev.length - 1];
+            if (last?.role === "assistant") return prev.slice(0, -1);
+            return prev;
+          });
+        }
+
+        const resp = await fetch(CHAT_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+          },
+          body: JSON.stringify({
+            messages: [...messages, userEntry].map((m) => ({ role: m.role, content: m.content })),
+            agent: activeWorker,
+          }),
+        });
+
+        if (!resp.ok || !resp.body) {
+          const err = await resp.json().catch(() => ({ error: "Connection failed" }));
+          lastError = err.error || "Something went wrong.";
+          if (resp.status === 429 || resp.status >= 500) continue; // retry
+          setMessages((prev) => [
+            ...prev,
+            { role: "assistant", content: `⚠️ ${lastError}` },
+          ]);
+          setIsStreaming(false);
+          return;
+        }
 
       const reader = resp.body.getReader();
       const decoder = new TextDecoder();
