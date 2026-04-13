@@ -625,10 +625,16 @@ function AIWorkersPage() {
                 <div className={cn("flex items-start gap-2 max-w-[75%]")}>
                   {msg.role === "assistant" && (
                     <div
-                      className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0 mt-1"
+                      className="w-8 h-8 rounded-lg overflow-hidden shrink-0 mt-1"
                       style={{ backgroundColor: worker.color + "20" }}
                     >
-                      <worker.icon className="w-3.5 h-3.5" style={{ color: worker.color }} />
+                      {agentProfiles[activeWorker] ? (
+                        <img src={agentProfiles[activeWorker].image} alt={worker.name} className="w-full h-full object-contain" width={32} height={32} />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center">
+                          <worker.icon className="w-3.5 h-3.5" style={{ color: worker.color }} />
+                        </div>
+                      )}
                     </div>
                   )}
                   <div
