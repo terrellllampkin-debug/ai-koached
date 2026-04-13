@@ -629,6 +629,66 @@ export type Database = {
         }
         Relationships: []
       }
+      revenue_logs: {
+        Row: {
+          amount: number
+          created_at: string
+          description: string | null
+          id: string
+          logged_date: string
+          source: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          description?: string | null
+          id?: string
+          logged_date?: string
+          source?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          description?: string | null
+          id?: string
+          logged_date?: string
+          source?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      trial_plans: {
+        Row: {
+          business_idea: string
+          created_at: string
+          email: string | null
+          id: string
+          plan_content: string
+          user_id: string | null
+        }
+        Insert: {
+          business_idea: string
+          created_at?: string
+          email?: string | null
+          id?: string
+          plan_content: string
+          user_id?: string | null
+        }
+        Update: {
+          business_idea?: string
+          created_at?: string
+          email?: string | null
+          id?: string
+          plan_content?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       user_achievements: {
         Row: {
           achievement_id: string
