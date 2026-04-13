@@ -554,10 +554,24 @@ function AIWorkersPage() {
           {/* Chat header with journey progress */}
           <div className="flex items-center gap-3 px-6 py-4 border-b border-border bg-card/50">
             <div
-              className="w-10 h-10 rounded-xl flex items-center justify-center"
+              className="w-12 h-12 rounded-xl overflow-hidden shrink-0"
               style={{ backgroundColor: worker.color + "15" }}
             >
-              <worker.icon className="w-5 h-5" style={{ color: worker.color }} />
+              {agentProfiles[activeWorker] ? (
+                <motion.img
+                  src={agentProfiles[activeWorker].image}
+                  alt={worker.name}
+                  className="w-full h-full object-contain"
+                  animate={{ y: [0, -2, 0] }}
+                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                  width={64}
+                  height={64}
+                />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center">
+                  <worker.icon className="w-5 h-5" style={{ color: worker.color }} />
+                </div>
+              )}
             </div>
             <div className="flex-1">
               <div className="flex items-center gap-2">
