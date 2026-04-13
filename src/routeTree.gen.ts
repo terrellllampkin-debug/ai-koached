@@ -21,9 +21,11 @@ import { Route as EmpireKoachRouteImport } from './routes/empire.koach'
 import { Route as EmpireGrantsRouteImport } from './routes/empire.grants'
 import { Route as EmpireEntityRouteImport } from './routes/empire.entity'
 import { Route as EmpireCreditRouteImport } from './routes/empire.credit'
+import { Route as EmpireCommunityRouteImport } from './routes/empire.community'
 import { Route as EmpireBuildRouteImport } from './routes/empire.build'
 import { Route as EmpireAvatarRouteImport } from './routes/empire.avatar'
 import { Route as EmpireAiWorkersRouteImport } from './routes/empire.ai-workers'
+import { Route as EmpireCommunityBusinessIdRouteImport } from './routes/empire.community.$businessId'
 
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
@@ -85,6 +87,11 @@ const EmpireCreditRoute = EmpireCreditRouteImport.update({
   path: '/credit',
   getParentRoute: () => EmpireRoute,
 } as any)
+const EmpireCommunityRoute = EmpireCommunityRouteImport.update({
+  id: '/community',
+  path: '/community',
+  getParentRoute: () => EmpireRoute,
+} as any)
 const EmpireBuildRoute = EmpireBuildRouteImport.update({
   id: '/build',
   path: '/build',
@@ -100,6 +107,12 @@ const EmpireAiWorkersRoute = EmpireAiWorkersRouteImport.update({
   path: '/ai-workers',
   getParentRoute: () => EmpireRoute,
 } as any)
+const EmpireCommunityBusinessIdRoute =
+  EmpireCommunityBusinessIdRouteImport.update({
+    id: '/$businessId',
+    path: '/$businessId',
+    getParentRoute: () => EmpireCommunityRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -108,6 +121,7 @@ export interface FileRoutesByFullPath {
   '/empire/ai-workers': typeof EmpireAiWorkersRoute
   '/empire/avatar': typeof EmpireAvatarRoute
   '/empire/build': typeof EmpireBuildRoute
+  '/empire/community': typeof EmpireCommunityRouteWithChildren
   '/empire/credit': typeof EmpireCreditRoute
   '/empire/entity': typeof EmpireEntityRoute
   '/empire/grants': typeof EmpireGrantsRoute
@@ -117,6 +131,7 @@ export interface FileRoutesByFullPath {
   '/empire/onboarding': typeof EmpireOnboardingRoute
   '/empire/pricing': typeof EmpirePricingRoute
   '/empire/revenue': typeof EmpireRevenueRoute
+  '/empire/community/$businessId': typeof EmpireCommunityBusinessIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -125,6 +140,7 @@ export interface FileRoutesByTo {
   '/empire/ai-workers': typeof EmpireAiWorkersRoute
   '/empire/avatar': typeof EmpireAvatarRoute
   '/empire/build': typeof EmpireBuildRoute
+  '/empire/community': typeof EmpireCommunityRouteWithChildren
   '/empire/credit': typeof EmpireCreditRoute
   '/empire/entity': typeof EmpireEntityRoute
   '/empire/grants': typeof EmpireGrantsRoute
@@ -134,6 +150,7 @@ export interface FileRoutesByTo {
   '/empire/onboarding': typeof EmpireOnboardingRoute
   '/empire/pricing': typeof EmpirePricingRoute
   '/empire/revenue': typeof EmpireRevenueRoute
+  '/empire/community/$businessId': typeof EmpireCommunityBusinessIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -143,6 +160,7 @@ export interface FileRoutesById {
   '/empire/ai-workers': typeof EmpireAiWorkersRoute
   '/empire/avatar': typeof EmpireAvatarRoute
   '/empire/build': typeof EmpireBuildRoute
+  '/empire/community': typeof EmpireCommunityRouteWithChildren
   '/empire/credit': typeof EmpireCreditRoute
   '/empire/entity': typeof EmpireEntityRoute
   '/empire/grants': typeof EmpireGrantsRoute
@@ -152,6 +170,7 @@ export interface FileRoutesById {
   '/empire/onboarding': typeof EmpireOnboardingRoute
   '/empire/pricing': typeof EmpirePricingRoute
   '/empire/revenue': typeof EmpireRevenueRoute
+  '/empire/community/$businessId': typeof EmpireCommunityBusinessIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -162,6 +181,7 @@ export interface FileRouteTypes {
     | '/empire/ai-workers'
     | '/empire/avatar'
     | '/empire/build'
+    | '/empire/community'
     | '/empire/credit'
     | '/empire/entity'
     | '/empire/grants'
@@ -171,6 +191,7 @@ export interface FileRouteTypes {
     | '/empire/onboarding'
     | '/empire/pricing'
     | '/empire/revenue'
+    | '/empire/community/$businessId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -179,6 +200,7 @@ export interface FileRouteTypes {
     | '/empire/ai-workers'
     | '/empire/avatar'
     | '/empire/build'
+    | '/empire/community'
     | '/empire/credit'
     | '/empire/entity'
     | '/empire/grants'
@@ -188,6 +210,7 @@ export interface FileRouteTypes {
     | '/empire/onboarding'
     | '/empire/pricing'
     | '/empire/revenue'
+    | '/empire/community/$businessId'
   id:
     | '__root__'
     | '/'
@@ -196,6 +219,7 @@ export interface FileRouteTypes {
     | '/empire/ai-workers'
     | '/empire/avatar'
     | '/empire/build'
+    | '/empire/community'
     | '/empire/credit'
     | '/empire/entity'
     | '/empire/grants'
@@ -205,6 +229,7 @@ export interface FileRouteTypes {
     | '/empire/onboarding'
     | '/empire/pricing'
     | '/empire/revenue'
+    | '/empire/community/$businessId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -299,6 +324,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EmpireCreditRouteImport
       parentRoute: typeof EmpireRoute
     }
+    '/empire/community': {
+      id: '/empire/community'
+      path: '/community'
+      fullPath: '/empire/community'
+      preLoaderRoute: typeof EmpireCommunityRouteImport
+      parentRoute: typeof EmpireRoute
+    }
     '/empire/build': {
       id: '/empire/build'
       path: '/build'
@@ -320,13 +352,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EmpireAiWorkersRouteImport
       parentRoute: typeof EmpireRoute
     }
+    '/empire/community/$businessId': {
+      id: '/empire/community/$businessId'
+      path: '/$businessId'
+      fullPath: '/empire/community/$businessId'
+      preLoaderRoute: typeof EmpireCommunityBusinessIdRouteImport
+      parentRoute: typeof EmpireCommunityRoute
+    }
   }
 }
+
+interface EmpireCommunityRouteChildren {
+  EmpireCommunityBusinessIdRoute: typeof EmpireCommunityBusinessIdRoute
+}
+
+const EmpireCommunityRouteChildren: EmpireCommunityRouteChildren = {
+  EmpireCommunityBusinessIdRoute: EmpireCommunityBusinessIdRoute,
+}
+
+const EmpireCommunityRouteWithChildren = EmpireCommunityRoute._addFileChildren(
+  EmpireCommunityRouteChildren,
+)
 
 interface EmpireRouteChildren {
   EmpireAiWorkersRoute: typeof EmpireAiWorkersRoute
   EmpireAvatarRoute: typeof EmpireAvatarRoute
   EmpireBuildRoute: typeof EmpireBuildRoute
+  EmpireCommunityRoute: typeof EmpireCommunityRouteWithChildren
   EmpireCreditRoute: typeof EmpireCreditRoute
   EmpireEntityRoute: typeof EmpireEntityRoute
   EmpireGrantsRoute: typeof EmpireGrantsRoute
@@ -342,6 +394,7 @@ const EmpireRouteChildren: EmpireRouteChildren = {
   EmpireAiWorkersRoute: EmpireAiWorkersRoute,
   EmpireAvatarRoute: EmpireAvatarRoute,
   EmpireBuildRoute: EmpireBuildRoute,
+  EmpireCommunityRoute: EmpireCommunityRouteWithChildren,
   EmpireCreditRoute: EmpireCreditRoute,
   EmpireEntityRoute: EmpireEntityRoute,
   EmpireGrantsRoute: EmpireGrantsRoute,
