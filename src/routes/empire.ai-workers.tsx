@@ -6,6 +6,7 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import {
   Building2, CreditCard, DollarSign, Coins, Send, Sparkles,
   Bot, ChevronRight, ArrowRight, Wrench, Briefcase, Users,
+  Newspaper, Zap,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
