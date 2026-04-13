@@ -6,13 +6,14 @@ import { useState, useEffect } from "react";
 import {
   Home, CreditCard, Building2, DollarSign, Coins,
   FileText, BarChart3, LogOut, ChevronLeft, ChevronRight,
-  User, Crown, Scale, Shirt, Rocket,
+  User, Crown, Scale, Shirt, Rocket, Bot,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 const navItems = [
   { to: "/empire", icon: Home, label: "HQ", exact: true },
+  { to: "/empire/ai-workers", icon: Bot, label: "AI Workers" },
   { to: "/empire/build", icon: Rocket, label: "Build Your Empire" },
   { to: "/empire/credit", icon: CreditCard, label: "Credit Empire" },
   { to: "/empire/entity", icon: Building2, label: "Entity Builder" },
