@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Logo } from "@/components/Logo";
 import { cn } from "@/lib/utils";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/try")({
   head: () => ({
@@ -109,6 +110,17 @@ function TryFreePage() {
       const result = await resp.json();
       if (result.plan) {
         setPlan(result.plan);
+        // Save to database for later retrieval
+        try {
+          await supabase.from("trial_plans").insert({
+            business_idea: idea.trim(),
+            plan_content: JSON.stringify(result.plan),
+            email: null,
+            user_id: null,
+          });
+        } catch {
+          // Non-critical — don't block the user
+        }
       } else {
         setError("No plan was generated. Try a more detailed description.");
       }
