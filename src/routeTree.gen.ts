@@ -23,6 +23,7 @@ import { Route as EmpireEntityRouteImport } from './routes/empire.entity'
 import { Route as EmpireCreditRouteImport } from './routes/empire.credit'
 import { Route as EmpireBuildRouteImport } from './routes/empire.build'
 import { Route as EmpireAvatarRouteImport } from './routes/empire.avatar'
+import { Route as EmpireAiWorkersRouteImport } from './routes/empire.ai-workers'
 
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
@@ -94,11 +95,17 @@ const EmpireAvatarRoute = EmpireAvatarRouteImport.update({
   path: '/avatar',
   getParentRoute: () => EmpireRoute,
 } as any)
+const EmpireAiWorkersRoute = EmpireAiWorkersRouteImport.update({
+  id: '/ai-workers',
+  path: '/ai-workers',
+  getParentRoute: () => EmpireRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/empire': typeof EmpireRouteWithChildren
   '/login': typeof LoginRoute
+  '/empire/ai-workers': typeof EmpireAiWorkersRoute
   '/empire/avatar': typeof EmpireAvatarRoute
   '/empire/build': typeof EmpireBuildRoute
   '/empire/credit': typeof EmpireCreditRoute
@@ -115,6 +122,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/empire': typeof EmpireRouteWithChildren
   '/login': typeof LoginRoute
+  '/empire/ai-workers': typeof EmpireAiWorkersRoute
   '/empire/avatar': typeof EmpireAvatarRoute
   '/empire/build': typeof EmpireBuildRoute
   '/empire/credit': typeof EmpireCreditRoute
@@ -132,6 +140,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/empire': typeof EmpireRouteWithChildren
   '/login': typeof LoginRoute
+  '/empire/ai-workers': typeof EmpireAiWorkersRoute
   '/empire/avatar': typeof EmpireAvatarRoute
   '/empire/build': typeof EmpireBuildRoute
   '/empire/credit': typeof EmpireCreditRoute
@@ -150,6 +159,7 @@ export interface FileRouteTypes {
     | '/'
     | '/empire'
     | '/login'
+    | '/empire/ai-workers'
     | '/empire/avatar'
     | '/empire/build'
     | '/empire/credit'
@@ -166,6 +176,7 @@ export interface FileRouteTypes {
     | '/'
     | '/empire'
     | '/login'
+    | '/empire/ai-workers'
     | '/empire/avatar'
     | '/empire/build'
     | '/empire/credit'
@@ -182,6 +193,7 @@ export interface FileRouteTypes {
     | '/'
     | '/empire'
     | '/login'
+    | '/empire/ai-workers'
     | '/empire/avatar'
     | '/empire/build'
     | '/empire/credit'
@@ -301,10 +313,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EmpireAvatarRouteImport
       parentRoute: typeof EmpireRoute
     }
+    '/empire/ai-workers': {
+      id: '/empire/ai-workers'
+      path: '/ai-workers'
+      fullPath: '/empire/ai-workers'
+      preLoaderRoute: typeof EmpireAiWorkersRouteImport
+      parentRoute: typeof EmpireRoute
+    }
   }
 }
 
 interface EmpireRouteChildren {
+  EmpireAiWorkersRoute: typeof EmpireAiWorkersRoute
   EmpireAvatarRoute: typeof EmpireAvatarRoute
   EmpireBuildRoute: typeof EmpireBuildRoute
   EmpireCreditRoute: typeof EmpireCreditRoute
@@ -319,6 +339,7 @@ interface EmpireRouteChildren {
 }
 
 const EmpireRouteChildren: EmpireRouteChildren = {
+  EmpireAiWorkersRoute: EmpireAiWorkersRoute,
   EmpireAvatarRoute: EmpireAvatarRoute,
   EmpireBuildRoute: EmpireBuildRoute,
   EmpireCreditRoute: EmpireCreditRoute,
