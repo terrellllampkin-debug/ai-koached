@@ -24,12 +24,15 @@ function EmpirePage() {
   const navigate = useNavigate();
   const [activeAgent, setActiveAgent] = useState<string | null>(null);
   const [view, setView] = useState<View>("office");
+  const matches = useMatches();
 
   useEffect(() => {
     if (!isLoading && !isAuthenticated) {
       navigate({ to: "/login" });
     }
   }, [isLoading, isAuthenticated, navigate]);
+
+  const isChildRoute = matches.some(m => m.fullPath !== '/empire' && m.fullPath.startsWith('/empire/'));
 
   if (isLoading) {
     return (
@@ -44,6 +47,17 @@ function EmpirePage() {
 
   if (!isAuthenticated) return null;
 
+  if (isChildRoute) {
+    return (
+      <div className="min-h-screen bg-background">
+        <EmpireNav />
+        <div className="ml-56 transition-all duration-300">
+          <Outlet />
+        </div>
+      </div>
+    );
+  }
+
   const handleBuildingClick = (building: string) => {
     const routes: Record<string, string> = {
       credit: "/empire/credit",
@@ -57,21 +71,6 @@ function EmpirePage() {
     const route = routes[building];
     if (route) navigate({ to: route });
   };
-
-  // Check if we're on a child route
-  const matches = useMatches();
-  const isChildRoute = matches.some(m => m.fullPath !== '/empire' && m.fullPath.startsWith('/empire/'));
-
-  if (isChildRoute) {
-    return (
-      <div className="min-h-screen bg-background">
-        <EmpireNav />
-        <div className="ml-56 transition-all duration-300">
-          <Outlet />
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="relative w-full h-screen overflow-hidden bg-background">
