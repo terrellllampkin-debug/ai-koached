@@ -7,7 +7,8 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 
 const agentProfiles: Record<string, { name: string; specialty: string; color: string; emoji: string }> = {
-  max_credit: { name: "Max Credit", specialty: "Credit Empire Specialist", color: "#D4AF37", emoji: "💳" },
+  max_credit: { name: "Max Credit", specialty: "Personal Credit Specialist", color: "#D4AF37", emoji: "💳" },
+  biz_credit: { name: "Biz Builder Brock", specialty: "Business Credit Specialist", color: "#2196F3", emoji: "🏢" },
   credit_repair: { name: "Fix-It Frankie", specialty: "Credit Repair Specialist", color: "#E53935", emoji: "🔧" },
   empire_eva: { name: "Empire Eva", specialty: "Entity Formation Expert", color: "#7F77DD", emoji: "🏛️" },
   revenue_rex: { name: "Revenue Rex", specialty: "Revenue Growth Strategist", color: "#4CAF50", emoji: "💰" },
