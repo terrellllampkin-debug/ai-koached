@@ -13,6 +13,7 @@ jobs:
   copilot-setup-steps:
     runs-on: ubuntu-latest
     permissions:
+      # Allow Copilot setup/session operations that require repository write access.
       contents: write
     steps:
       - name: Checkout code
