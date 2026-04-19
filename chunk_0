@@ -1,0 +1,26 @@
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { useState, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Logo } from "@/components/Logo";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { useAuth } from "@/hooks/useAuth";
+import { supabase } from "@/integrations/supabase/client";
+import { Sparkles, ArrowRight, Bot, Target } from "lucide-react";
+
+export const Route = createFileRoute("/empire/onboarding")({
+  head: () => ({
+    meta: [
+      { title: "Welcome \u2014 AI KOACHED" },
+      { name: "description", content: "Your AI team is ready to build your empire." },
+    ],
+  }),
+  component: OnboardingPage,
+});
+
+const HOT_BUSINESSES = [
+  { id: "ai_content_agency", emoji: "\u270d\ufe0f", name: "AI Content Agency", tagline: "Write for businesses using AI", income: "$2K\u2013$10K/mo", speed: "First $ in 7 days", difficulty: "Beginner", color: "#D4AF37", firstStep: "DM 10 local businesses offering one free social post today." },
+  { id: "ai_virtual_assistant", emoji: "\ud83d\udcbc", name: "AI Virtual Assistant", tagline: "Handle admin for busy founders", income: "$1.5K\u2013$6K/mo", speed: "First $ in 3 days", difficulty: "Beginner", color: "#4CAF50", firstStep: "Post in 3 entrepreneur Facebook groups offering AI-powered VA services." },
+  { id: "ai_social_media_manager", emoji: "\ud83d\udcf1", name: "AI Social Media Manager", tagline: "Run social for local businesses", income: "$1K\u2013$5K/mo", speed: "First $ in 7 days", difficulty: "Beginner", color: "#E91E63", firstStep: "Offer a free 30-day trial to one restaurant or salon near you." },
+  { id: "ai_chatbot_agency", emoji: "\ud83e\udd16", name: "AI Chatbot Agency", tagline: "Build chatbots for small businesses", income: "$3K\u2013$15K/mo", speed: "First $ in 14 days", difficulty: "Intermediate", color: "#2196F3", firstStep: "Target dental offices, gyms, and law firms \u2014 offer a free 30-day pilot." },
+  { id: "ai_lead_generation", emoji: "\ud83c\udfaf", name: "AI Lead Generation", tagline: "Find clients for businesses using AI", income: "$3K\u2013$20K/mo", speed: "First $ in 14 days", difficulty: "Intermediate", color: "#FF5722", firstStep: "Run a free pilot \u2014 deliver 100 qualified leads before charging anything." },
